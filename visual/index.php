@@ -15,10 +15,12 @@ require "../funcoes/funcoesGerais.php";
 require "cabecalho.php"; 
 
 // carrega o perfil
-if(isset($_GET['perfil'])){ 
+if(isset($_GET['perfil']))
+{ 
 	include "../perfil/".$_GET['perfil'].".php";
-
-}else{
+}
+else
+{
 	include "../perfil/inicio.php";
 }
 
