@@ -1,10 +1,4 @@
 ﻿<section id="list_items" class="home-section bg-white">
-	<div class="form-group">
-		<div class="col-md-offset-2 col-md-8">		
-			<h2>Usuários Cadastrados</h2>
-			<a href="?perfil=admin&p=novoUser" class="btn btn-theme btn-lg btn-block">Inserir novo usuário</a>
-		</div>
-	</div> 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
