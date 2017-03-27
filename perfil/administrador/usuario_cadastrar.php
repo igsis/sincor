@@ -81,7 +81,6 @@
 								<label>sincor2017</label>
 							</div> 
 						</div>
-						
 						<!-- Botão de Confirmar cadastro !-->
 						<div class="form-group">	
 							<div class="col-md-offset-2 col-md-8">

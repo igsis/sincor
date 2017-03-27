@@ -13,7 +13,7 @@
 		$partes = explode('/', $data);
 		return mktime(0, 0, 0, $partes[1], $partes[0], $partes[2]);
 	}
-	require "../funcoes/funcoesAdministrador.php"; //chamar funcoes do administrador	
+	require "../perfil/administrador/includes/funcoesAdministrador.php"; //chamar funcoes do administrador	
 	switch($p)
 	{
 		case "inicial":
