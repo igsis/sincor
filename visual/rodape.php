@@ -24,12 +24,10 @@ echo ini_get('session.gc_maxlifetime')/60; // em minutos
 		</div>	
 	</footer>
 	 
-	 <!-- js -->
-    <!--<script src="js/jquery.js"></script>-->
-    
+	    
     <?php 
 	if(isset($_GET['perfil'])){
-	$modulo = recuperaDados("ig_modulo",$_GET['perfil'],"pag");
+	$modulo = recuperaDados("modulo","pagina",$_GET['perfil']);
 	
 	?>
     	<script>

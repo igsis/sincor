@@ -10,7 +10,7 @@
 	function autenticalogin($login, $senha)
 	{	
 		$sql = "SELECT * FROM usuario AS usr
-		INNER JOIN papel_usuario AS pap ON pap.id = usr.idPapelUsuario
+		INNER JOIN perfil AS pap ON pap.id = usr.idPerfil
 		WHERE usr.login = '$login' AND usr.publicado = '1' LIMIT 0,1";
 		$con = bancoMysqli();
 		$query = mysqli_query($con,$sql);
@@ -27,7 +27,7 @@
 					// compara as senhas
 					session_start();
 					$_SESSION['login'] = $user['login'];
-					$_SESSION['perfil'] = $user['idPapelUsuario'];
+					$_SESSION['perfil'] = $user['idPerfil'];
 					$_SESSION['nome'] = $user['nome'];
 					$_SESSION['idUsuario'] = $user['id'];
 					$log = "Fez login.";
@@ -220,7 +220,7 @@
 	
 	function recuperaModulo($pag)
 	{
-		$sql = "SELECT * FROM modulo WHERE pag = '$pag'";
+		$sql = "SELECT * FROM modulo WHERE pagina = '$pag'";
 		$con = bancoMysqli();
 		$query = mysqli_query($con,$sql);
 		$modulo = mysqli_fetch_array($query);
@@ -230,7 +230,7 @@
 	function retornaModulos($perfil)
 	{
 		// recupera quais módulos o usuário tem acesso
-		$sql = "SELECT * FROM papel_usuario WHERE id = $perfil"; 
+		$sql = "SELECT * FROM perfil WHERE id = $perfil"; 
 		$con = bancoMysqli();
 		$query = mysqli_query($con,$sql);
 		$campoFetch = mysqli_fetch_array($query);
@@ -250,7 +250,7 @@
 	{
 		//gera as tds dos módulos a carregar
 		// recupera quais módulos o usuário tem acesso
-		$sql = "SELECT * FROM papel_usuario WHERE id = $perfil"; 
+		$sql = "SELECT * FROM perfil WHERE id = $perfil"; 
 		$con = bancoMysqli();
 		$query = mysqli_query($con,$sql);
 		$campoFetch = mysqli_fetch_array($query);
@@ -269,6 +269,33 @@
 				echo "</tr>";
 			}
 		}
+	}
+	
+	function listaModulosAlfa($perfil)
+	{
+		//gera as tds dos módulos a carregar
+		$con = bancoMysqli();
+		// recupera os módulos do sistema
+		$sql_modulos = "SELECT pagina FROM modulo ORDER BY nome";
+		$query_modulos = mysqli_query($con,$sql_modulos);
+		while($modulos = mysqli_fetch_array($query_modulos))
+		{
+			$sql = "SELECT * FROM perfil WHERE id = $perfil"; 
+			$query = mysqli_query($con,$sql);
+			$campoFetch = mysqli_fetch_array($query);
+			if(($campoFetch[$modulos['pagina']] == 1) AND ($campoFetch[$modulos['pagina']] != 'perfil.id'))
+			{
+				$descricao = recuperaModulo($modulos['pagina']);
+				echo "<tr>";
+				echo "<td class='list_description'><b>".$descricao['nome']."</b></td>";
+				echo "<td class='list_description'>".$descricao['descricao']."</td>";
+				echo "
+					<td class='list_description'>
+						<form method='POST' action='?perfil=".$modulos['pagina']."' >
+							<input type ='submit' class='btn btn-theme btn-lg btn-block' value='carregar'></td></form>"	;
+				echo "</tr>";
+			}
+		}	
 	}
 		
 	function recuperaDados($tabela,$campo,$variavelCampo)

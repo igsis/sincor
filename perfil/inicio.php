@@ -4,23 +4,11 @@
 		<ul class="dl-menu">
 			<li><a href="?secao=inicio">Início</a></li>
 			<li><a href="?secao=perfil">Carregar Módulos</a></li>
-			<li><a href="http://www.centrocultural.cc/igsis/manual/">Ajuda</a></li>
-			<li><a href="../include/logoff.php">Sair</a></li>
-			<!--<li>
-			<a href="#">Sub Menu</a>
-			<ul class="dl-submenu">
-			<li><a href="#">Sub menu</a></li>
-			<li><a href="#">Sub menu</a></li>
-			</ul>
-			</li>-->
+			<li><a href="../include/logoff.php">Sair</a></li>			
 		</ul>
-	</div><!-- /dl-menuwrapper -->
+	</div>
 </div>
 <?php
-	if(isset($_SESSION['idEvento']))
-	{
-		unset($_SESSION['idEvento']);	
-	}
 	if(isset($_GET['secao']))
 	{
 		$secao = $_GET['secao'];
@@ -53,11 +41,6 @@
 		break;
 		case "perfil";
 	?>
-<!-- <section id="services" class="home-section bg-white">
-	<div class="container">
-	</div>
-</section>-->
-<!-- list -->
 <section id="list_items" class="home-section bg-white">
 	<div class="container">
 		<div class="row">
