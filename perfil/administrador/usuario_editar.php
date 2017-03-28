@@ -1,73 +1,70 @@
 <?php
-			include "../include/menuAdministradorLocal.php";
-			if (isset ($_POST ['resetSenha']))
-			{
-				$senha = MD5 ('igsis2015');
-				$usuario = $_POST ['editarUser'];		
-				$sql_atualizar = "UPDATE `ig_usuario` SET
-					`senha` = '$senha'
-					WHERE `idUsuario` = '$usuario'";
-				$con = bancoMysqli();
-				if(mysqli_query ($con,$sql_atualizar))
-				{
-					$mensagem = "Senha reiniciado com sucesso";
-				}
-				else
-				{
-					$mensagem = "Erro ao reiniciar. Tente novamente.";
-				}
+	if (isset ($_POST ['resetSenha']))
+	{
+		$senha = MD5 ('sincor2017');
+		$usuario = $_POST ['editarUser'];		
+		$sql_atualizar = "UPDATE `usuario` SET `senha` = '$senha' WHERE `id` = '$usuario'";
+		$con = bancoMysqli();
+		if(mysqli_query ($con,$sql_atualizar))
+		{
+			$mensagem = "Senha reiniciada com sucesso";
+		}
+		else
+		{
+			$mensagem = "Erro ao reiniciar. Tente novamente.";
+		}
+	}
+	// Atualiza o banco com as informações do post
+	if(isset($_POST['atualizar']))
+	{
+		$usuario= $_POST ['id'];
+		$nomeCompleto = $_POST['nome'];
+		$nomeUsuario = $_POST['nomeUsuario'];
+		$existe = verificaExiste("ig_usuario","nomeUsuario",$usuario,"0");
+		$telefone = $_POST['telefone'];
+		$instituicao = $_SESSION['id_usuario = 1'] = $_POST['ig_instituicao_idInstituicao'];
+		$local = $_POST['local'];
+		$perfil = $_POST['papelusuario'];
+		$rf	=	$_POST['rf'];
+		$email = $_POST['email'];	
+		if(isset($_POST['receberEmail']))
+		{
+			$receberEmail =	1;
+		}
+		else
+		{
+			$receberEmail =	0;
+		}
+		if($existe['numero'] == 0)
+		{
+			$sql_atualizar = "UPDATE `ig_usuario`SET
+				`nomeCompleto`= '$nomeCompleto',
+				`nomeUsuario`= '$nomeUsuario', 
+				`telefone`= '$telefone',
+				`idInstituicao` = '$instituicao',
+				`local`= '$local',
+				`ig_papelusuario_idPapelUsuario`= '$perfil',
+				`rf`= '$rf',	
+				`email`= '$email', 
+				`receberNotificacao`= '$receberEmail'			
+				WHERE `idUsuario` = '$usuario' ";
+			$con = bancoMysqli();
+			if(mysqli_query($con,$sql_atualizar))
+			{ 
+				$mensagem = "Usuário atualizado com sucesso";
 			}
-			// Atualiza o banco com as informações do post
-			if(isset($_POST['atualizar']))
+			else
 			{
-				$usuario= $_POST ['idUsuario'];
-				$nomeCompleto = $_POST['nomeCompleto'];
-				$nomeUsuario = $_POST['nomeUsuario'];
-				$existe = verificaExiste("ig_usuario","nomeUsuario",$usuario,"0");
-				$telefone = $_POST['telefone'];
-				$instituicao = $_SESSION['id_usuario = 1'] = $_POST['ig_instituicao_idInstituicao'];
-				$local = $_POST['local'];
-				$perfil = $_POST['papelusuario'];
-				$rf	=	$_POST['rf'];
-				$email = $_POST['email'];	
-				if(isset($_POST['receberEmail']))
-				{
-					$receberEmail =	1;
-				}
-				else
-				{
-					$receberEmail =	0;
-				}
-				if($existe['numero'] == 0)
-				{
-					$sql_atualizar = "UPDATE `ig_usuario`SET
-						`nomeCompleto`= '$nomeCompleto',
-						`nomeUsuario`= '$nomeUsuario', 
-						`telefone`= '$telefone',
-						`idInstituicao` = '$instituicao',
-						`local`= '$local',
-						`ig_papelusuario_idPapelUsuario`= '$perfil',
-						`rf`= '$rf',	
-						`email`= '$email', 
-						`receberNotificacao`= '$receberEmail'			
-						WHERE `idUsuario` = '$usuario' ";
-					$con = bancoMysqli();
-					if(mysqli_query($con,$sql_atualizar))
-					{ 
-						$mensagem = "Usuário atualizado com sucesso";
-					}
-					else
-					{
-						$mensagem = "Erro ao editar. Tente novamente.";
-					}
-				}
-				else
-				{
-					$mensagem = "Tente novamente.";
-				}
-			} 
-			$recuperaUsuario = recuperaDados("ig_usuario",$_POST['editarUser'],"idUsuario"); 
-	?>
+				$mensagem = "Erro ao editar. Tente novamente.";
+			}
+		}
+		else
+		{
+			$mensagem = "Tente novamente.";
+		}
+	} 
+	$recuperaUsuario = recuperaDados("usuario",$_POST['editarUser'],"id"); 
+?>
 <section id="inserirUser" class="home-section bg-white">
     <div class="container">
         <div class="row">
@@ -80,84 +77,43 @@
     	</div>
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
-				<form method="POST" action="?perfil=admin&p=editarUser" class="form-horizontal" role="form">
-					<input type="hidden" name="idUsuario"  value=<?php  echo $recuperaUsuario['idUsuario'] ?> />
+				<form method="POST" action="?perfil=administrador&p=usuario_editar" class="form-horizontal" role="form">
+					<input type="hidden" name="id"  value=<?php  echo $recuperaUsuario['id'] ?> />
 					<!-- // Usuario !-->
 					<div class="col-md-offset-1 col-md-10">  
 						<div class="form-group">
 							<div class="col-md-offset-2 col-md-8">
 								<label>Nome Completo:</label>
-								<input type="text" name="nomeCompleto" class="form-control"id="nomeCompleto" value="<?php echo $recuperaUsuario['nomeCompleto'] ?>" />
+								<input type="text" name="nome" class="form-control" value="<?php echo $recuperaUsuario['nomeCompleto'] ?>"/>
 							</div> 
+						</div>
+
+						<div class="form-group">
 							<div class="col-md-offset-2 col-md-8">
-								<label>Usuario:</label>
-								<input type="text" name="nomeUsuario" class="form-control"id="nomeUsuario" value="<?php echo $recuperaUsuario['nomeUsuario'] ?>" />
-							</div>  <!-- // SENHA !-->
-							<!-- // Departamento !-->
-							<div class="col-md-offset-2 col-md-8">	
-								<label>telefone:</label>
-								<input type="text" name="telefone" class="form-control"id="departamento" value="<?php echo $recuperaUsuario['telefone'] ?>" />
-							</div>  <!-- // Perfil de Usuario !-->
+								<label>Login:</label>
+								<input type="text" name="login" class="form-control" value="<?php echo $recuperaUsuario['login'] ?>" />
+							</div> 
+						</div>
+						
+						<div class="form-group">	
 							<div class="col-md-offset-2 col-md-8">
-								<label>Instituição:</label>
-								<select name="ig_instituicao_idInstituicao" class="form-control"  >
-									<?php instituicaoLocal("ig_instituicao",$recuperaUsuario['idInstituicao'],""); ?>
-								</select>
-							</div>  <!-- // Perfil de Usuario !-->
-							<div class="col-md-offset-2 col-md-8">
-								<label>Local:</label>
-								<select name="local" class="form-control"  >
-									<?php acessoLocal("ig_local",$recuperaUsuario['local'],""); ?>
-								</select>
-							</div>
-							<div class="col-md-offset-2 col-md-8">
-								<div class="col-md-offset-2 col-md-8">
-									<label>Acesso aos Perfil's :</label>
-								</div>
-								<select name="papelusuario" class="form-control"  >
-									<?php acessoPerfilUser("ig_papelusuario",$recuperaUsuario['ig_papelusuario_idPapelUsuario'],""); ?>
-								</select>
-							</div>  <!--  // Regristro Funcional 'RF' !-->
-							<div class="col-md-offset-2 col-md-8">  
-								<label>RF:</label>
-								<input type="text" name="rf" class="form-control" value="<?php echo $recuperaUsuario ['rf']?>"/>
-							</div> <!--  // Email !-->
-							<div class="col-md-offset-2 col-md-8">  
 								<label>Email para cadastro:</label>
-								<input type="text" name="email" class="form-control" id="email" value="<?php echo $recuperaUsuario ['email']?>"/>
+								<input type="text" name="email" class="form-control" value="<?php echo $recuperaUsuario ['email']?>" />
 							</div>
-							<div class="col-md-offset-2 col-md-8"> <!-- // Confirmação de Recebimento de Email !-->
-								<label style="padding:0 10px 0 5px;">Receber Email de atualizações: </label><input type="checkbox" name="receberEmail" id="diasemana01"/>
-							</div> <!-- Fim de Preenchemento !-->  
-							<!-- Botão de Confirmar cadastro !-->
+						</div>
+
+						<div class="form-group">	
 							<div class="col-md-offset-2 col-md-8">
-								<script type="application/javascript">
-									$(function() {
-										/* caixa-confirmacao representa a id onde o caixa de confirmação deve ser criada no html */
-										$( "#caixa-confirmacao" ).dialog({
-										  resizable: false,
-										  height:500,
-
-										  /* 
-										   * Modal desativa os demais itens da tela, impossibilitando interação com eles,
-										   * forçando usuário a responder à pergunta da caixa de confirmação
-										   */ 
-										  modal: true,
-
-										  /* Os botões que você quer criar */
-										  buttons: {
-											"Sim": function() {
-											  $( this ).dialog( "close" );
-											  alert("Você clicou em Sim");
-											},
-											"Não": function() {
-											  $( this ).dialog( "close" );
-											  alert("Você clicou em Não");
-											}
-										  }
-										});
-									  });
-								</script>
+								<label>Perfil de acesso:</label>
+								<select name="perfil" class="form-control"  >
+									<option>Escolha um perfil</option>
+									<?php geraOpcao("perfil",""); ?>
+								</select>
+							</div> 
+						</div>
+						
+						<div class="form-group">	
+							<div class="col-md-offset-2 col-md-8">
 								<input type="hidden" name="editarUser" value="<?php echo $_POST['editarUser'] ?>"  />
 								<input type="hidden" name="atualizar" value="1"  />
 								<input type="submit" class="btn btn-theme btn-lg btn-block" value="Atualizar Usuário" onclick="return confirm('Tem certeza que deseja realizar essa ação?')" />
@@ -165,18 +121,13 @@
 						</div>
 					</div>
 				</form>				
-				<form method="POST" action="?perfil=admin&p=editarUser" class="form-horizontal" role="form">
+				<form method="POST" action="?perfil=administrador&p=usuario_editar" class="form-horizontal" role="form">
 					<div class="col-md-offset-1 col-md-10">
 						<input type="hidden" name="editarUser" value="<?php echo $_POST['editarUser'] ?>"  />
 						<input type="hidden" name="resetSenha" value="1"  />
 						<input type="submit" class="btn btn-theme btn-lg btn-blcok" name="resetar_senha" value="Resetar Senha do usuario" /> <p> </p>
 					</div> 
 				</form>	
-				<form method="POST" action="?perfil=admin&p=users" class="form-horizontal" >
-					<div class="col-md-offset-2 col-md-8">
-						<input type="submit" class="btn btn-theme btn-lg btn-blcok" value="Lista de Usuário" />
-					</div>
-				</form>
 			</div>	
 		</div>    
 	</div>

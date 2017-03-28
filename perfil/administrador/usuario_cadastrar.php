@@ -1,5 +1,4 @@
-<?php
-			
+<?php			
 	if(isset($_POST['atualizar']))
 	{
 		$nome = $_POST['nome'];
@@ -7,7 +6,7 @@
 		$existe = verificaExiste("usuario","login",$login,"0");
 		$senha = MD5 ('sincor2017');
 		$email = $_POST['email'];
-		$perfil = $_POST['nomePerfil'];
+		$perfil = $_POST['perfil'];
 		$publicado = "1";
 		
 		if($existe['numero'] == 0)
@@ -35,13 +34,13 @@
             <div class="col-md-offset-1 col-md-10">
                 <div class="text-hide">
                     <h3>Inserir Usuário</h3>
-					<h3><?php if(isset($mensagem)){echo $mensagem;} ?></h3>
+					<h5><?php if(isset($mensagem)){echo $mensagem;} ?></h5>
                 </div>
             </div>
     	</div>
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
-				<form method="POST" action="?perfil=admin&p=novoUser" class="form-horizontal" role="form">
+				<form method="POST" action="?perfil=administrador&p=usuario_cadastrar" class="form-horizontal" role="form">
 					<!-- // Usuario !-->
 					<div class="col-md-offset-1 col-md-10">  
 						<div class="form-group">
