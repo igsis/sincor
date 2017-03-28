@@ -71,15 +71,78 @@ if(isset($_POST['pesquisar']))
 	else
 	{
 		$con = bancoMysqli();
-		if($id != '')
+		if($orgao != '')
 		{
-			$filtro_id = " AND idEvento = '$id' ";
+			$filtro_orgao = " AND idOrgao = '$orgao'";
 		}
 		else
 		{
-			$filtro_id = "";			
+			$filtro_orgao = '';
 		}
 		
+		if($unidade != '')
+		{
+			$filtro_unidade = " AND idUnidade = '$unidade'";
+		}
+		else
+		{
+			$filtro_unidade = '';
+		}
+		
+		if($funcao != '')
+		{
+			$filtro_funcao = " AND idFuncao = '$funcao'";
+		}
+		else
+		{
+			$filtro_funcao = '';
+		}
+		
+		if($subfuncao != '')
+		{
+			$filtro_subfuncao = " AND idSubfuncao = '$subfuncao'";
+		}
+		else
+		{
+			$filtro_subfuncao = '';
+		}
+		
+		if($programa != '')
+		{
+			$filtro_programa = " AND idPrograma = '$programa'";
+		}
+		else
+		{
+			$filtro_programa = '';
+		}
+		
+		if($natureza != '')
+		{
+			$filtro_natureza = " AND idNatureza = '$natureza'";
+		}
+		else
+		{
+			$filtro_natureza = '';
+		}
+		
+		if($modalidade != '')
+		{
+			$filtro_modalidade = " AND idModalidade = '$modalidade'";
+		}
+		else
+		{
+			$filtro_modalidade = '';
+		}
+		
+		if($fonte != '')
+		{
+			$filtro_fonte = " AND idFonte = '$fonte'";
+		}
+		else
+		{
+			$filtro_fonte = '';
+		}
+		/*
 		if($nomeEvento != '')
 		{
 			$filtro_nomeEvento = " AND nomeEvento LIKE '%$nomeEvento%' OR autor LIKE '%$nomeEvento%' ";
@@ -97,24 +160,14 @@ if(isset($_POST['pesquisar']))
 		{
 			$filtro_fiscal = "";	
 		}	
+		*/
 		
-		if($projeto == 0)
-		{
-			$filtro_projeto = " ";	
-		}
-		else
-		{
-			$filtro_projeto = " AND ig_evento.projetoEspecial = '$projeto'  ";	
-		}		
-		$usr = recuperaDados('ig_usuario',$_SESSION['idUsuario'],'idUsuario');
-		$localUsr = $usr['local'];
-		$sql_evento = "
-			SELECT DISTINCT idEvento FROM ig_ocorrencia WHERE publicado = 1 AND idEvento IN (SELECT idEvento FROM ig_evento WHERE publicado = 1 AND dataEnvio IS NOT NULL $filtro_id $filtro_fiscal $filtro_projeto AND idEvento NOT IN (SELECT DISTINCT idEvento FROM igsis_pedido_contratacao WHERE publicado = 1) )  $filtro_nomeEvento  ORDER BY dataInicio DESC";
-		$query_evento = mysqli_query($con,$sql_evento);
-		
+		$sql_orcamento = "SELECT * FROM orcamento_central WHERE $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_natureza $filtro_modalidade $filtro_fonte";
+		$query_orcamento = mysqli_query($con,$sql_orcamento);
+					
 		$i = 0;
 
-		while($evento = mysqli_fetch_array($query_evento))
+		while($orcamento = mysqli_fetch_array($query_orcamento))
 		{
 			$idEvento = $evento['idEvento'];	
 			$evento = recuperaDados("ig_evento",$idEvento,"idEvento"); 			
@@ -165,7 +218,6 @@ if(isset($_POST['pesquisar']))
 							<td>Local</td>
 							<td>Periodo</td>
 							<td>Fiscal</td>
-							<td></td>
 							</tr>
 						</thead>
 					<tbody>
@@ -178,11 +230,7 @@ if(isset($_POST['pesquisar']))
 						echo '<td class="list_description">'.$x[$h]['objeto'].'</td>';
 						echo '<td class="list_description">'.$x[$h]['local'].'</td> ';
 						echo '<td class="list_description">'.$x[$h]['periodo'].'</td> ';
-						echo '<td class="list_description">'.$x[$h]['fiscal'].'</td> ';
-						echo "<td class='list_description'>
-						<form method='POST' action='?perfil=gestao_eventos&p=frm_reabertura'>
-						<input type='hidden' name='reabertura' value='".$x[$h]['id']."' >	
-						<input type ='submit' class='btn btn-theme  btn-block' value='reabrir'></td></form></tr>";
+						echo '<td class="list_description">'.$x[$h]['fiscal'].'</td> </tr>';
 					}
 				?>					
 					</tbody>
@@ -193,29 +241,10 @@ if(isset($_POST['pesquisar']))
 			</div>
 		</div>
 	</section>
-
 <?php
 }
 else
 {
-	//AQUI FAZ A REABERTURA
-	if(isset($_POST['reabertura']))
-	{
-		$con = BancoMysqli();
-		$id = $_POST['reabertura'];
-		$mensagem = "";
-		$sql_reabrir = "UPDATE ig_evento SET dataEnvio = NULL, statusEvento = 'Em elaboração' WHERE idEvento = '$id'";
-		$query_reabrir = mysqli_query($con,$sql_reabrir);
-		if($query_reabrir)
-		{
-			$evento = recuperaDados("ig_evento",$id,"idEvento");
-			$mensagem = $mensagem."O evento ".$evento['nomeEvento']." foi reaberto.<br /><br/>";
-		}
-		else
-		{
-			$mensagem = $mensagem."Erro ao reabrir evento.<br/><br/>";
-		}	
-	}
 ?>
 	<section id="services" class="home-section bg-white">
 		<div class="container">
@@ -231,17 +260,14 @@ else
 				
 				<form method="POST" action="?perfil=gestao_eventos&p=frm_reabertura" class="form-horizontal" role="form">	
 				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Orgão</label>
+					<div class="col-md-offset-2 col-md-6"><label>Orgão</label>
 						<select class="form-control" name="orgao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("orgao","descricao"); ?>
 						</select>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Unidade</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+					<div class="col-md-6"><label>Unidade</label>
+						<select class="form-control" name="unidade" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("unidade","descricao"); ?>
 						</select>
@@ -250,7 +276,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Função</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+						<select class="form-control" name="funcao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("funcao","descricao"); ?>
 						</select>
@@ -259,7 +285,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Subfunção</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+						<select class="form-control" name="subfuncao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("subfuncao","descricao"); ?>
 						</select>
@@ -268,7 +294,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Programa</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+						<select class="form-control" name="programa" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("programa","descricao"); ?>
 						</select>
@@ -277,7 +303,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Natureza Econômica</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+						<select class="form-control" name="natureza" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("natureza_economica","descricao"); ?>
 						</select>
@@ -286,7 +312,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Modalidade Aplicada</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+						<select class="form-control" name="modalidade" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("modalidade_aplicada","descricao"); ?>
 						</select>
@@ -295,7 +321,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Fonte</label>
-						<select class="form-control" name="projeto" id="inputSubject" >
+						<select class="form-control" name="fonte" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("fonte","descricao"); ?>
 						</select>
