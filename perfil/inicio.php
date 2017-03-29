@@ -4,6 +4,7 @@
 		<ul class="dl-menu">
 			<li><a href="?secao=inicio">Início</a></li>
 			<li><a href="?secao=perfil">Carregar Módulos</a></li>
+			<li><a href="?perfil=sobre">Sobre</a></li>
 			<li><a href="../include/logoff.php">Sair</a></li>			
 		</ul>
 	</div>
