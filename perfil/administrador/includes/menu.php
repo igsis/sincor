@@ -9,7 +9,6 @@ $pasta = "?perfil=administrador&p=";
 			<li><a href="#">Usuários</a>
 				<ul class="dl-submenu">
 					<li><a href="<?php echo $pasta ?>usuario_cadastrar">Cadastrar</a></li>
-					<li><a href="<?php echo $pasta ?>usuario_editar">Editar</a></li>
 					<li><a href="<?php echo $pasta ?>usuario_listar">Listar</a></li>
 				</ul>
 			</li>
@@ -17,6 +16,7 @@ $pasta = "?perfil=administrador&p=";
 			<li><a href="<?php echo $pasta ?>contabilidade">Verificar tabela contabilidade</a></li>
 			<li style="color:white;">-------------------------</li>
 			<li><a href="?secao=perfil">Carregar Módulos</a></li>
+			<li><a href="?perfil=sobre">Sobre</a></li>
 			<li><a href="../include/logoff.php">Sair </a></li>
 		</ul>
 	</div>
