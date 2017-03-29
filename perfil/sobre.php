@@ -24,6 +24,8 @@
 				<p>Grayce de Deus Ferreira</p>
 				<p>Lorelei Gabriele Castro Lourenço</p>
 				<p>William Cordeiro Fonseca</p>
+				<p>&nbsp;</p>
+				<p><strong>Contato: <a href="mailto:stidesenvolvimento@prefeitura.sp.gov.br">stidesenvolvimento@prefeitura.sp.gov.br</a></strong></p>
 			</div>
 		</div>
 	</div>
