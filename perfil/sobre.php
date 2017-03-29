@@ -19,7 +19,7 @@
 			<div class="col-md-offset-2 col-md-8">
 				<h4>Equipe SMC/S.T.I. Desenvolvimento</h4>
 				<p>Adilson de Oliveira Lima</p>
-				<p>Ana Carolina</p>
+				<p>Ana Carolina Vieira Batista</p>
 				<p>Bruno Silva dos Santos</p>
 				<p>Grayce de Deus Ferreira</p>
 				<p>Lorelei Gabriele Castro Lourenço</p>

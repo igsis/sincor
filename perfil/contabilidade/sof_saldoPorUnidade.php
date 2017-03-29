@@ -172,7 +172,8 @@
 			}
 			if($query_insere)
 			{
-				$mensagem .= "Arquivo inserido na tabela empenhado_raw. <br />";
+				$mensagem .= "Arquivo inserido na tabela saldo_unidade. <br /><br />
+					<h4><a href='?perfil=contabilidade&p=sof_empenhado'>Clique aqui para enviar o arquivo de Empenhados. --></a></h4><br/>";
 				$sql_insere_orcamentoCentral = "INSERT orcamento_central 
 					(dotacao, 
 					saldoOrcado, 
@@ -188,7 +189,7 @@
 					saldoReservas 
 					FROM `saldo_unidade` 
 					WHERE `detalhes` LIKE '______13%'";
-				$query_orcamentoCentral = mysqli_query($con,$sql_insere_orcamentoCentral);
+				$query_orcamentoCentral = mysqli_query($con,$sql_insere_orcamentoCentral);							
 			}
 			else
 			{
@@ -206,8 +207,9 @@
   	<div class="container">
 		<div class="form-group">
 			<div class="sub-title">
-				<h2>Integração SOF / SINCOR</h2>
-				<h4>Aqui você pode subir arquivos de saldo por unidade</h4>
+				<h2>Integração SOF / SINCOR</h2><br/>
+				<h2>SITUAÇÃO PROJETOS ATIVIDADES</h2>
+				<h5>Aqui você pode subir arquivos de saldo por unidade</h5>
 				<h3></h3>
 			</div>       
 		</div>
@@ -226,7 +228,7 @@
 		?>
 				<form method="POST" action="?perfil=contabilidade&p=sof_saldoPorUnidade" enctype="multipart/form-data">
 					<div class="form-group">
-						<div class="col-md-offset-2 col-md-8"><strong>Arquivo em EXCEL (Máximo 50M)</strong><br/>
+						<div class="col-md-offset-2 col-md-8"><strong>Arquivo em EXCEL (Máximo 50MB)</strong><br/>
 							<input type="file" class="form-control" name="arquivo" /	>
 						</div>
 					</div>

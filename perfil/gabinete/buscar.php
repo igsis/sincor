@@ -13,13 +13,17 @@ switch($b)
 case 'inicial':
 	
 if(isset($_POST['pesquisar']))
-{
-	$id = trim($_POST['id']);
-	$evento = trim($_POST['nomeEvento']);
-	$fiscal = $_POST['fiscal'];
-	$projeto = $_POST['projeto'];
+{		
+	$orgao = $_POST['orgao'];
+	$unidade = $_POST['unidade'];
+	$funcao = $_POST['funcao'];
+	$subfuncao = $_POST['subfuncao'];
+	$programa = $_POST['programa'];
+	$modalidade = $_POST['modalidade'];
+	$fonte = $_POST['fonte'];
+	$dotacao = trim($_POST['dotacao']);
 
-	if($id == "" AND $evento == "" AND $fiscal == 0 AND $projeto == 0)
+	if($orgao == "" AND $unidade == "" AND $funcao == "" AND $subfuncao == "" AND $programa == "" AND $modalidade == "" AND $fonte == "" AND dotacao == "")
 	{
 ?>
 		<section id="services" class="home-section bg-white">
@@ -34,26 +38,9 @@ if(isset($_POST['pesquisar']))
 					<div class="form-group">
 						<div class="col-md-offset-2 col-md-8">
 							<h5><?php if(isset($mensagem)){ echo $mensagem; } ?>
+														
+							<h1>COPIAR O FORMULÁRIO AQUI</h1>
 							
-							<form method="POST" action="?perfil=gestao_eventos&p=frm_reabertura" class="form-horizontal" role="form">
-							<label>Id do Evento</label>
-							<input type="text" name="id" class="form-control" id="palavras" placeholder="Insira o Id do Evento" ><br />
-							
-							<label>Nome do Evento</label>
-							<input type="text" name="nomeEvento" class="form-control" id="palavras" placeholder="Insira o objeto" ><br />
-							
-							<label>Fiscal, suplente ou usuário que cadastrou o evento</label>
-							<select class="form-control" name="fiscal" id="inputSubject" >
-								<option value="0"></option>	
-								<?php echo opcaoUsuario($_SESSION['idInstituicao'],"") ?>
-							</select>
-							<br />	
-								
-							<label>Tipo de Projeto</label>
-							<select class="form-control" name="projeto" id="inputSubject" >
-								<option value='0'></option>
-								<?php  geraOpcaoOrdem("ig_projeto_especial","projetoEspecial"); ?>
-							</select>
 						</div>
 					</div><br />  
 				</div>			
@@ -162,7 +149,7 @@ if(isset($_POST['pesquisar']))
 		}	
 		*/
 		
-		$sql_orcamento = "SELECT * FROM orcamento_central WHERE $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_natureza $filtro_modalidade $filtro_fonte";
+		$sql_orcamento = "SELECT * FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_natureza $filtro_modalidade $filtro_fonte $filtro_dotacao";
 		$query_orcamento = mysqli_query($con,$sql_orcamento);
 					
 		$i = 0;
@@ -275,16 +262,13 @@ else
 				</div>
 				
 				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Função</label>
+					<div class="col-md-offset-2 col-md-6"><label>Função</label>
 						<select class="form-control" name="funcao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("funcao","descricao"); ?>
 						</select>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Subfunção</label>
+					<div class="col-md-6"><label>Subfunção</label>
 						<select class="form-control" name="subfuncao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("subfuncao","descricao"); ?>
@@ -293,25 +277,13 @@ else
 				</div>
 				
 				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Programa</label>
+					<div class="col-md-offset-2 col-md-6"><label>Programa</label>
 						<select class="form-control" name="programa" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("programa","descricao"); ?>
 						</select>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Natureza Econômica</label>
-						<select class="form-control" name="natureza" id="inputSubject" >
-							<option value='0'></option>
-							<?php  geraOpcao("natureza_economica","descricao"); ?>
-						</select>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Modalidade Aplicada</label>
+					<div class="col-md-6"><label>Modalidade Aplicada</label>
 						<select class="form-control" name="modalidade" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("modalidade_aplicada","descricao"); ?>
@@ -327,6 +299,13 @@ else
 						</select>
 					</div>
 				</div>
+				
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-8">
+						<label>Dotação Orçamentária</label>
+							<input type="text" name="dotacao" class="form-control" placeholder="Insira o número da dotação com a devida pontuação" ><br />
+					</div>
+				</div>	
 				            
 	            <div class="form-group">
 		            <div class="col-md-offset-2 col-md-8">

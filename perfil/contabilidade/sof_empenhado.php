@@ -355,8 +355,9 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
   	<div class="container">
 		<div class="form-group">
 			<div class="sub-title">
-				<h2>Integração SOF / SINCOR</h2>
-				<h4>Aqui você pode subir arquivos de empenhado</h4>
+				<h2>Integração SOF / SINCOR</h2><br/>
+				<h2>EMPENHADOS</h2>
+				<h4>Aqui você pode subir arquivos de empenhados</h4>
 				<h3></h3>
 			</div>       
 		</div>
@@ -375,7 +376,7 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 		?>
 				<form method="POST" action="?perfil=contabilidade&p=sof_empenhado" enctype="multipart/form-data">
 					<div class="form-group">
-						<div class="col-md-offset-2 col-md-8"><strong>Arquivo em EXCEL (Máximo 50M)</strong><br/>
+						<div class="col-md-offset-2 col-md-8"><strong>Arquivo em EXCEL (Máximo 50MB)</strong><br/>
 							<input type="file" class="form-control" name="arquivo" /	>
 						</div>
 					</div>

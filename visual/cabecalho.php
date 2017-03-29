@@ -11,7 +11,7 @@ else
 	$logado = $_SESSION['login'];
 }
 //ini_set('session.gc_maxlifetime', 30*60); // 30 minutos
-ini_set('session.gc_maxlifetime', 60*60*2); // 60 minutos
+ini_set('session.gc_maxlifetime', 60*60); // 60 minutos
 ?>
 
 <html>
@@ -28,6 +28,6 @@ ini_set('session.gc_maxlifetime', 60*60*2); // 60 minutos
     </head>
 	<body>
 		<div id="bar">
-			<p id="p-bar">&nbsp;<img src="images/logo_pequeno.png" /><!--<?php echo saudacao(); ?>, <?php echo $_SESSION['nomeCompleto']; ?> <?php if(isset($_SESSION['idEvento'])){verificaEdicao($_SESSION['idEvento']);} ?> <g id="doc"></a>--> 
+			<p id="p-bar">&nbsp;<img src="images/logo_pequeno.png" />
 			</p>
 		</div>
