@@ -9,7 +9,6 @@ $pasta = "?perfil=administrador&p=";
 			<li><a href="#">Usuários</a>
 				<ul class="dl-submenu">
 					<li><a href="<?php echo $pasta ?>usuario_cadastrar">Cadastrar</a></li>
-					<li><a href="<?php echo $pasta ?>usuario_editar">Editar</a></li>
 					<li><a href="<?php echo $pasta ?>usuario_listar">Listar</a></li>
 				</ul>
 			</li>
