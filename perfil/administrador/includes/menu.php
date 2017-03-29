@@ -13,10 +13,8 @@ $pasta = "?perfil=administrador&p=";
 					<li><a href="<?php echo $pasta ?>usuario_listar">Listar</a></li>
 				</ul>
 			</li>
-			<!--
+		
 			<li><a href="<?php echo $pasta ?>contabilidade">Verificar tabela contabilidade</a></li>
-			<li><a href="<?php echo $pasta ?>sof"> SOF </a></li>
-			-->
 			<li style="color:white;">-------------------------</li>
 			<li><a href="?secao=perfil">Carregar Módulos</a></li>
 			<li><a href="../include/logoff.php">Sair </a></li>
