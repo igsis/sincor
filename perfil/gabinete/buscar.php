@@ -181,11 +181,11 @@ if(isset($_POST['pesquisar']))
 			<?php
 			if ($x['num'] == 1)
 			{
-				echo "<h5>Foi encontrado ".$x['num']." evento</h5>";
+				echo "<h5>Foi encontrado ".$x['num']." registro</h5>";
 			}
 			else
 			{
-				echo "<h5>Foram encontrados ".$x['num']." eventos</h5>";
+				echo "<h5>Foram encontrados ".$x['num']." registros</h5>";
 			}
 			?>
 			<h5><a href="?perfil=gestao_eventos&p=frm_reabertura">Fazer outra busca</a></h5>
@@ -200,11 +200,11 @@ if(isset($_POST['pesquisar']))
 					<table class="table table-condensed">
 						<thead>
 							<tr class="list_menu">
-							<td>Id Evento</td>	
-							<td>Nome Evento</td>
-							<td>Local</td>
-							<td>Periodo</td>
-							<td>Fiscal</td>
+							<td>Orgão / Unidade</td>	
+							<td>Nome Simplificado</td>
+							<td>Saldo Orçado</td>
+							<td>Saldo Congelado</td>
+							<td>Saldo Descongelado</td>
 							</tr>
 						</thead>
 					<tbody>
