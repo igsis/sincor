@@ -4,9 +4,9 @@
 			<div class="col-md-offset-2 col-md-8">
 				<h3>Bem-vindo(a) ao SINCOR!</h3>
 				<p>&nbsp;</p>
-				<h2>Módulo Gabinete</h2>
+				<h2>Módulo Contratos</h2>
 				<p>&nbsp;</p>
-				<p>Esse módulo possibilita visualizar relatórios contábeis de contratações.</p>
+				<p>Módulo voltado para o gerenciamento de contratos.</p>
            </div>
 		</div>
 	</div>
