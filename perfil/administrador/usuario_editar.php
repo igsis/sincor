@@ -2,8 +2,8 @@
 	if (isset ($_POST ['resetSenha']))
 	{
 		$senha = MD5 ('sincor2017');
-		$usuario = $_POST ['editarUser'];		
-		$sql_atualizar = "UPDATE `usuario` SET `senha` = '$senha' WHERE `id` = '$usuario'";
+		$login = $_POST ['editarUser'];		
+		$sql_atualizar = "UPDATE `usuario` SET `senha` = '$senha' WHERE `id` = '$login'";
 		$con = bancoMysqli();
 		if(mysqli_query ($con,$sql_atualizar))
 		{
