@@ -59,14 +59,14 @@
 						
 						<div class="form-group">	
 							<div class="col-md-offset-2 col-md-8">
-								<label>Email para cadastro:</label>
+								<label>Email para Cadastro:</label>
 								<input type="text" name="email" class="form-control" />
 							</div>
 						</div>
 
 						<div class="form-group">	
 							<div class="col-md-offset-2 col-md-8">
-								<label>Perfil de acesso:</label>
+								<label>Perfil de Acesso:</label>
 								<select name="perfil" class="form-control"  >
 									<option>Escolha um perfil</option>
 									<?php geraOpcao("perfil",""); ?>

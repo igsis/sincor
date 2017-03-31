@@ -49,16 +49,16 @@
 			echo "<td class='list_description'>".$perfil['nomePerfil']."</td>";
 			echo "
 				<td class='list_description'>
-					<form method='POST' action='?perfil=administrador&p=usuario_editar'>
+					<form method='POST' action='?perfil=administrador&p=usuario_editar&idUsuario=".$campo['id']."'>
 					<input type='hidden' name='editarUser' value='".$campo['id']."' />
 					<input type ='submit' class='btn btn-theme btn-block' value='Editar usuário'>
 					</form>
 				</td>"	;
 			echo "
 				<td class='list_description'>
-					<form method='POST' action='?perfil=administrador&p=users'>
+					<form method='POST' action='?perfil=administrador&p=users&idUsuario".$campo['id']."'>
 					<input type='hidden' name='apagar' value='".$campo['id']."' />
-					<input type ='submit' class='btn btn-theme  btn-block' value='apagar usuário'>
+					<input type ='submit' class='btn btn-theme  btn-block' value='Apagar usuário'>
 					</form>
 				</td>"	;
 			echo "</tr>";		
