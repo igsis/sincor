@@ -58,7 +58,7 @@ if(isset($_POST['pesquisar']))
 	else
 	{
 		$con = bancoMysqli();
-		if($orgao != '')
+		if($orgao != '0')
 		{
 			$filtro_orgao = " AND idOrgao = '$orgao'";
 		}
@@ -67,7 +67,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_orgao = '';
 		}
 		
-		if($unidade != '')
+		if($unidade != '0')
 		{
 			$filtro_unidade = " AND idUnidade = '$unidade'";
 		}
@@ -76,7 +76,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_unidade = '';
 		}
 		
-		if($funcao != '')
+		if($funcao != '0')
 		{
 			$filtro_funcao = " AND idFuncao = '$funcao'";
 		}
@@ -85,7 +85,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_funcao = '';
 		}
 		
-		if($subfuncao != '')
+		if($subfuncao != '0')
 		{
 			$filtro_subfuncao = " AND idSubfuncao = '$subfuncao'";
 		}
@@ -94,7 +94,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_subfuncao = '';
 		}
 		
-		if($programa != '')
+		if($programa != '0')
 		{
 			$filtro_programa = " AND idPrograma = '$programa'";
 		}
@@ -103,7 +103,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_programa = '';
 		}
 		
-		if($natureza != '')
+		if($natureza != '0')
 		{
 			$filtro_natureza = " AND idNatureza = '$natureza'";
 		}
@@ -112,13 +112,13 @@ if(isset($_POST['pesquisar']))
 			$filtro_natureza = '';
 		}
 		
-		if($modalidade != '')
+		if($modalidade != '0')
 		{
 			$filtro_modalidade = " AND idModalidade = '$modalidade'";
 		}
 		else
 		{
-			$filtro_modalidade = '';
+			$filtro_modalidade = '0';
 		}
 		
 		if($fonte != '')
@@ -130,7 +130,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_fonte = '';
 		}
 		
-		if($dotacao != '')
+		if($dotacao != '0')
 		{
 			$filtro_dotacao = " AND dotacao = '$dotacao'";
 		}

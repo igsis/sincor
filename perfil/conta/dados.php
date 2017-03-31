@@ -1,25 +1,25 @@
 <?php 
 	if(isset($_POST['atualizar']))
-			{
-				//atualiza os dados
-				$nome = $_POST['nome'];
-				$email  = $_POST['email'];
-				$idUsuario = $_SESSION['idUsuario'];
-				$sql_atualiza_dados = "UPDATE usuario SET `nome` = '$nome', email = '$email' WHERE id = '$id';";
-				$con = bancoMysqli();
-				$query_atualiza_dados = mysqli_query($con, $sql_atualiza_dados);	
-				if($query_atualiza_dados)
-				{
-					$mensagem = "Dados atualizados!";
-					gravarLog($sql_atualiza_dados);	
-				}
-				else
-				{
-					$mensagem = "Erro ao atualizar! Tente novamente.";
-				}
-			}
-			$conta = recuperaUsuarioCompleto($_SESSION['idUsuario']);
-	?>
+	{
+		//atualiza os dados
+		$nome = $_POST['nome'];
+		$email  = $_POST['email'];
+		$idUsuario = $_SESSION['idUsuario'];
+		$sql_atualiza_dados = "UPDATE usuario SET `nome` = '$nome', email = '$email' WHERE id = '$id';";
+		$con = bancoMysqli();
+		$query_atualiza_dados = mysqli_query($con, $sql_atualiza_dados);	
+		if($query_atualiza_dados)
+		{
+			$mensagem = "Dados atualizados!";
+			gravarLog($sql_atualiza_dados);	
+		}
+		else
+		{
+			$mensagem = "Erro ao atualizar! Tente novamente.";
+		}
+	}
+	$conta = recuperaUsuarioCompleto($_SESSION['idUsuario']);
+?>
 <section id="contact" class="home-section bg-white">
 	<div class="container">
 		<div class="form-group">
