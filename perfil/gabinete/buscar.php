@@ -129,6 +129,15 @@ if(isset($_POST['pesquisar']))
 		{
 			$filtro_fonte = '';
 		}
+		
+		if($dotacao != '')
+		{
+			$filtro_dotacao = " AND dotacao = '$dotacao'";
+		}
+		else
+		{
+			$filtro_dotacao = '';
+		}
 		/*
 		if($nomeEvento != '')
 		{
@@ -153,32 +162,31 @@ if(isset($_POST['pesquisar']))
 		$query_orcamento = mysqli_query($con,$sql_orcamento);
 					
 		$i = 0;
+		
 
 		while($orcamento = mysqli_fetch_array($query_orcamento))
-		{
-			$idEvento = $evento['idEvento'];	
-			$evento = recuperaDados("ig_evento",$idEvento,"idEvento"); 			
-			$usuario = recuperaDados("ig_usuario",$evento['idUsuario'],"idUsuario");
-			$local = listaLocais($idEvento);
-			$periodo = retornaPeriodo($idEvento);
-			$fiscal = recuperaUsuario($evento['idResponsavel']);			
-			
-			$x[$i]['id']= $evento['idEvento'];
-			$x[$i]['objeto'] = retornaTipo($evento['ig_tipo_evento_idTipoEvento'])." - ".$evento['nomeEvento'];
-			$x[$i]['local'] = substr($local,1);
-			$x[$i]['periodo'] = $periodo;
-			$x[$i]['fiscal'] = $fiscal['nomeCompleto'];			
+		{/*
+			$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
+			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
+			$acao = recuperaDados("acao","id",$orcamento['idAcao']);			
+						
+			$x[$i]['orgao'] = $orgao['descricao'];
+			$x[$i]['unidade'] = $unidade['descricao'];
+			$x[$i]['idAcao'] = $acao['id'];
+			$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplificada'];*/
+			$x[$i]['saldoDotacao'] = $orcamento['saldoDotacao'];
 			$i++;			
 		}
 		$x['num'] = $i;				
 	}
-	$mensagem ="Total de eventos encontrados: ".$x['num'].".";
+	$mensagem = "Total de eventos encontrados: ".$x['num'].".";
 ?>
 	<br /><br />
 	<section id="list_items">
 		<div class="container">
 			<h3>Resultado da busca</h3>
 			<?php
+			var_dump($orcamento);
 			if ($x['num'] == 1)
 			{
 				echo "<h5>Foi encontrado ".$x['num']." registro</h5>";
@@ -188,7 +196,7 @@ if(isset($_POST['pesquisar']))
 				echo "<h5>Foram encontrados ".$x['num']." registros</h5>";
 			}
 			?>
-			<h5><a href="?perfil=gestao_eventos&p=frm_reabertura">Fazer outra busca</a></h5>
+			<h5><a href="?perfil=gabinete&p=buscar">Fazer outra busca</a></h5>
 			<div class="table-responsive list_info">
 			<?php 
 				if($x['num'] == 0)
@@ -213,11 +221,11 @@ if(isset($_POST['pesquisar']))
 					$data=date('Y');
 					for($h = 0; $h < $x['num']; $h++)
 					{		
-						echo "<tr><td class='list_description'> <a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['id']."</a></td>";
-						echo '<td class="list_description">'.$x[$h]['objeto'].'</td>';
-						echo '<td class="list_description">'.$x[$h]['local'].'</td> ';
-						echo '<td class="list_description">'.$x[$h]['periodo'].'</td> ';
-						echo '<td class="list_description">'.$x[$h]['fiscal'].'</td> </tr>';
+						echo "<tr><td class='list_description'> <a target=_blank href='".$link.$x[$i]['orgao']."'>".$x[$i]['orgao']."</a></td>";
+						echo '<td class="list_description">'.$x[$i]['descricaoSimplificada'].'</td>';
+						echo '<td class="list_description">'.$x[$i]['saldoDotacao'] .'</td> ';
+						echo '<td class="list_description">'.$x[$i]['idAcao'].'</td> ';
+						echo '<td class="list_description">'.$x[$i]['unidade'].'</td> </tr>';
 					}
 				?>					
 					</tbody>
@@ -245,7 +253,7 @@ else
 					</div>
 				</div>
 				
-				<form method="POST" action="?perfil=gestao_eventos&p=frm_reabertura" class="form-horizontal" role="form">	
+				<form method="POST" action="?perfil=gabinete&p=buscar" class="form-horizontal" role="form">	
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Orgão</label>
 						<select class="form-control" name="orgao" id="inputSubject" >
