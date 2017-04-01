@@ -14,16 +14,16 @@ case 'inicial':
 	
 if(isset($_POST['pesquisar']))
 {		
-	$orgao = $_POST['orgao'];
-	$unidade = $_POST['unidade'];
-	$funcao = $_POST['funcao'];
-	$subfuncao = $_POST['subfuncao'];
-	$programa = $_POST['programa'];
-	$modalidade = $_POST['modalidade'];
-	$fonte = $_POST['fonte'];
+	$idOrgao = $_POST['idOrgao'];
+	$idUnidade = $_POST['idUnidade'];
+	$idFuncao = $_POST['idFuncao'];
+	$idSubfuncao = $_POST['idSubfuncao'];
+	$idPrograma = $_POST['idPrograma'];
+	$idModalidade = $_POST['idModalidade'];
+	$idFonte = $_POST['idFonte'];
 	$dotacao = trim($_POST['dotacao']);
 
-	if($orgao == "" AND $unidade == "" AND $funcao == "" AND $subfuncao == "" AND $programa == "" AND $modalidade == "" AND $fonte == "" AND dotacao == "")
+	if($idOrgao == "" AND $idUnidade == "" AND $idFuncao == "" AND $idSubfuncao == "" AND $idPrograma == "" AND $idModalidade == "" AND $idFonte == "" AND dotacao == "")
 	{
 ?>
 		<section id="services" class="home-section bg-white">
@@ -58,79 +58,70 @@ if(isset($_POST['pesquisar']))
 	else
 	{
 		$con = bancoMysqli();
-		if($orgao != '0')
+		if($idOrgao != '0')
 		{
-			$filtro_orgao = " AND idOrgao = '$orgao'";
+			$filtro_orgao = " AND idOrgao = '$idOrgao'";
 		}
 		else
 		{
 			$filtro_orgao = '';
 		}
 		
-		if($unidade != '0')
+		if($idUnidade != '0')
 		{
-			$filtro_unidade = " AND idUnidade = '$unidade'";
+			$filtro_unidade = " AND idUnidade = '$idUnidade'";
 		}
 		else
 		{
 			$filtro_unidade = '';
 		}
 		
-		if($funcao != '0')
+		if($idFuncao != '0')
 		{
-			$filtro_funcao = " AND idFuncao = '$funcao'";
+			$filtro_funcao = " AND idFuncao = '$idFuncao'";
 		}
 		else
 		{
 			$filtro_funcao = '';
 		}
 		
-		if($subfuncao != '0')
+		if($idSubfuncao != '0')
 		{
-			$filtro_subfuncao = " AND idSubfuncao = '$subfuncao'";
+			$filtro_subfuncao = " AND idSubfuncao = '$idSubfuncao'";
 		}
 		else
 		{
 			$filtro_subfuncao = '';
 		}
 		
-		if($programa != '0')
+		if($idPrograma != '0')
 		{
-			$filtro_programa = " AND idPrograma = '$programa'";
+			$filtro_programa = " AND idPrograma = '$idPrograma'";
 		}
 		else
 		{
 			$filtro_programa = '';
 		}
-		
-		if($natureza != '0')
+				
+		if($idModalidade != '0')
 		{
-			$filtro_natureza = " AND idNatureza = '$natureza'";
+			$filtro_modalidade = " AND idModalidade = '$idModalidade'";
 		}
 		else
 		{
-			$filtro_natureza = '';
+			$filtro_modalidade = '';
 		}
 		
-		if($modalidade != '0')
+		if($idFonte != '0')
 		{
-			$filtro_modalidade = " AND idModalidade = '$modalidade'";
-		}
-		else
-		{
-			$filtro_modalidade = '0';
-		}
-		
-		if($fonte != '')
-		{
-			$filtro_fonte = " AND idFonte = '$fonte'";
+			$filtro_fonte = " AND idFonte = '$idFonte'";
 		}
 		else
 		{
 			$filtro_fonte = '';
 		}
 		
-		if($dotacao != '0')
+		if($dotacao != '')
 		{
 			$filtro_dotacao = " AND dotacao = '$dotacao'";
 		}
@@ -143,38 +134,25 @@ if(isset($_POST['pesquisar']))
 		{
 			$filtro_nomeEvento = " AND nomeEvento LIKE '%$nomeEvento%' OR autor LIKE '%$nomeEvento%' ";
 		}
-		else
-		{
-			$filtro_nomeEvento = "";			
-		}		
-				
-		if($fiscal != 0)
-		{
-			$filtro_fiscal = " AND (idResponsavel = '$fiscal' OR suplente = '$fiscal' OR idUsuario = '$fiscal' )";	
-		}
-		else
-		{
-			$filtro_fiscal = "";	
-		}	
 		*/
 		
-		$sql_orcamento = "SELECT * FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_natureza $filtro_modalidade $filtro_fonte $filtro_dotacao";
+		$sql_orcamento = "SELECT * FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_modalidade $filtro_fonte $filtro_dotacao";
 		$query_orcamento = mysqli_query($con,$sql_orcamento);
 					
-		$i = 0;
-		
+		$i = 0;		
 
 		while($orcamento = mysqli_fetch_array($query_orcamento))
-		{/*
+		{
 			$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
 			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
 			$acao = recuperaDados("acao","id",$orcamento['idAcao']);			
 						
-			$x[$i]['orgao'] = $orgao['descricao'];
-			$x[$i]['unidade'] = $unidade['descricao'];
+			$x[$i]['idOrgao'] = $orgao['descricao'];
+			$x[$i]['idUnidade'] = $unidade['descricao'];
 			$x[$i]['idAcao'] = $acao['id'];
-			$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplificada'];*/
-			$x[$i]['saldoDotacao'] = $orcamento['saldoDotacao'];
+			$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplicada'];
+			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
+			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
 			$i++;			
 		}
 		$x['num'] = $i;				
@@ -186,7 +164,6 @@ if(isset($_POST['pesquisar']))
 		<div class="container">
 			<h3>Resultado da busca</h3>
 			<?php
-			var_dump($orcamento);
 			if ($x['num'] == 1)
 			{
 				echo "<h5>Foi encontrado ".$x['num']." registro</h5>";
@@ -221,11 +198,13 @@ if(isset($_POST['pesquisar']))
 					$data=date('Y');
 					for($h = 0; $h < $x['num']; $h++)
 					{		
-						echo "<tr><td class='list_description'> <a target=_blank href='".$link.$x[$i]['orgao']."'>".$x[$i]['orgao']."</a></td>";
-						echo '<td class="list_description">'.$x[$i]['descricaoSimplificada'].'</td>';
-						echo '<td class="list_description">'.$x[$i]['saldoDotacao'] .'</td> ';
-						echo '<td class="list_description">'.$x[$i]['idAcao'].'</td> ';
-						echo '<td class="list_description">'.$x[$i]['unidade'].'</td> </tr>';
+						echo '<tr>';
+						echo "<td class='list_description'> <a target=_blank href='".$link.$x[$h]['idOrgao']."'>".$x[$h]['idOrgao']." - ".$x[$h]['idUnidade']."</a></td>";
+						echo '<td class="list_description">'.$x[$h]['descricaoSimplificada'].'</td>';
+						echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']).'</td> ';
+						echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['totalCongelado']).'</td> ';
+						echo '<td class="list_description"></td>';
+						echo '</tr>';
 					}
 				?>					
 					</tbody>
@@ -256,13 +235,13 @@ else
 				<form method="POST" action="?perfil=gabinete&p=buscar" class="form-horizontal" role="form">	
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Orgão</label>
-						<select class="form-control" name="orgao" id="inputSubject" >
+						<select class="form-control" name="idOrgao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("orgao","descricao"); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Unidade</label>
-						<select class="form-control" name="unidade" id="inputSubject" >
+						<select class="form-control" name="idUnidade" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("unidade","descricao"); ?>
 						</select>
@@ -271,13 +250,13 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Função</label>
-						<select class="form-control" name="funcao" id="inputSubject" >
+						<select class="form-control" name="idFuncao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("funcao","descricao"); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Subfunção</label>
-						<select class="form-control" name="subfuncao" id="inputSubject" >
+						<select class="form-control" name="idSubfuncao" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("subfuncao","descricao"); ?>
 						</select>
@@ -286,13 +265,13 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Programa</label>
-						<select class="form-control" name="programa" id="inputSubject" >
+						<select class="form-control" name="idPrograma" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("programa","descricao"); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Modalidade Aplicada</label>
-						<select class="form-control" name="modalidade" id="inputSubject" >
+						<select class="form-control" name="idModalidade" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("modalidade_aplicada","descricao"); ?>
 						</select>
@@ -301,7 +280,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8"><label>Fonte</label>
-						<select class="form-control" name="fonte" id="inputSubject" >
+						<select class="form-control" name="idFonte" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("fonte","descricao"); ?>
 						</select>
