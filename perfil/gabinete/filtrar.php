@@ -20,10 +20,11 @@ if(isset($_POST['pesquisar']))
 	$idSubfuncao = $_POST['idSubfuncao'];
 	$idPrograma = $_POST['idPrograma'];
 	$idModalidade = $_POST['idModalidade'];
+	$idAcao = $_POST['idAcao']; 
 	$idFonte = $_POST['idFonte'];
 	$dotacao = trim($_POST['dotacao']);
 
-	if($idOrgao == "" AND $idUnidade == "" AND $idFuncao == "" AND $idSubfuncao == "" AND $idPrograma == "" AND $idModalidade == "" AND $idFonte == "" AND dotacao == "")
+	if($idOrgao == "" AND $idUnidade == "" AND $idFuncao == "" AND $idSubfuncao == "" AND $idPrograma == "" AND $idModalidade == "" AND $idFonte == "" AND $idAcao == "" AND dotacao == "")
 	{
 ?>
 		<section id="services" class="home-section bg-white">
@@ -112,6 +113,15 @@ if(isset($_POST['pesquisar']))
 			$filtro_modalidade = '';
 		}
 		
+		if($idAcao != '0')
+		{
+			$filtro_acao = " AND idAcao = '$idAcao'";
+		}
+		else
+		{
+			$filtro_acao = "";
+		}
+		
 		if($idFonte != '0')
 		{
 			$filtro_fonte = " AND idFonte = '$idFonte'";
@@ -129,14 +139,8 @@ if(isset($_POST['pesquisar']))
 		{
 			$filtro_dotacao = '';
 		}
-		/*
-		if($nomeEvento != '')
-		{
-			$filtro_nomeEvento = " AND nomeEvento LIKE '%$nomeEvento%' OR autor LIKE '%$nomeEvento%' ";
-		}
-		*/
 		
-		$sql_orcamento = "SELECT * FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_modalidade $filtro_fonte $filtro_dotacao";
+		$sql_orcamento = "SELECT * FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_programa $filtro_modalidade $filtro_acao $filtro_fonte $filtro_dotacao ORDER BY idOrgao, idUnidade";
 		$query_orcamento = mysqli_query($con,$sql_orcamento);
 					
 		$i = 0;		
@@ -147,10 +151,11 @@ if(isset($_POST['pesquisar']))
 			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
 			$acao = recuperaDados("acao","id",$orcamento['idAcao']);			
 						
+			$x[$i]['id'] = $orcamento['id'];
 			$x[$i]['idOrgao'] = $orgao['descricao'];
 			$x[$i]['idUnidade'] = $unidade['descricao'];
 			$x[$i]['idAcao'] = $acao['id'];
-			$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplicada'];
+			$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplificada'];
 			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
 			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
 			$i++;			
@@ -162,7 +167,7 @@ if(isset($_POST['pesquisar']))
 	<br /><br />
 	<section id="list_items">
 		<div class="container">
-			<h3>Resultado da busca</h3>
+			<h3>Resultado do filtro</h3>
 			<?php
 			if ($x['num'] == 1)
 			{
@@ -173,7 +178,7 @@ if(isset($_POST['pesquisar']))
 				echo "<h5>Foram encontrados ".$x['num']." registros</h5>";
 			}
 			?>
-			<h5><a href="?perfil=gabinete&p=buscar">Fazer outra busca</a></h5>
+			<h5><a href="?perfil=gabinete&p=filtrar">Aplicar outro filtro</a></h5>
 			<div class="table-responsive list_info">
 			<?php 
 				if($x['num'] == 0)
@@ -194,16 +199,16 @@ if(isset($_POST['pesquisar']))
 						</thead>
 					<tbody>
 				<?php
-					$link="index.php?perfil=gestao_eventos&p=detalhe_evento&id_eve=";
+					$link="index.php?perfil=gabinete&p=filtrar"; //arrumar
 					$data=date('Y');
 					for($h = 0; $h < $x['num']; $h++)
 					{		
 						echo '<tr>';
-						echo "<td class='list_description'> <a target=_blank href='".$link.$x[$h]['idOrgao']."'>".$x[$h]['idOrgao']." - ".$x[$h]['idUnidade']."</a></td>";
-						echo '<td class="list_description">'.$x[$h]['descricaoSimplificada'].'</td>';
+						echo '<td class="list_description">'.$x[$h]['idOrgao']." - ".$x[$h]['idUnidade'].'</td>';
+						echo "<td class='list_description'> <a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['descricaoSimplificada']."</a></td>";
 						echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']).'</td> ';
 						echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['totalCongelado']).'</td> ';
-						echo '<td class="list_description"></td>';
+						echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']-$x[$h]['totalCongelado']).'</td>';
 						echo '</tr>';
 					}
 				?>					
@@ -224,7 +229,7 @@ else
 		<div class="container">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
-					<h2>BUSCAR</h2>
+					<h2>FILTRAR</h2>
 				</div>
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-8">
@@ -232,7 +237,7 @@ else
 					</div>
 				</div>
 				
-				<form method="POST" action="?perfil=gabinete&p=buscar" class="form-horizontal" role="form">	
+				<form method="POST" action="?perfil=gabinete&p=filtrar" class="form-horizontal" role="form">	
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Orgão</label>
 						<select class="form-control" name="idOrgao" id="inputSubject" >
@@ -279,7 +284,13 @@ else
 				</div>
 				
 				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><label>Fonte</label>
+					<div class="col-md-offset-2 col-md-6"><label>Ação</label>
+						<select class="form-control" name="idAcao" id="inputSubject" >
+							<option value='0'></option>
+							<?php  geraOpcao("acao","descricao"); ?>
+						</select>
+					</div>
+					<div class="col-md-6"><label>Fonte</label>
 						<select class="form-control" name="idFonte" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("fonte","descricao"); ?>
