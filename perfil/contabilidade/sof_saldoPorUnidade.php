@@ -58,7 +58,6 @@
 				$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
 				$objPHPExcel = $objReader->load($inputFileName);
-				
 				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
 				$objWriter->save("teste");
 			}
@@ -191,7 +190,7 @@
 					saldoDotacao, 
 					saldoReservas 
 					FROM `saldo_unidade` 
-					WHERE `detalhes` LIKE '______13%'";
+					WHERE `detalhes` LIKE '____13%'";
 				$query_orcamentoCentral = mysqli_query($con,$sql_insere_orcamentoCentral);							
 			}
 			else
@@ -248,4 +247,4 @@
 	  		</div>	
 	  	</div>
 	</div>
-</section> 
+</section>

@@ -269,6 +269,21 @@ else
 				</div>
 				
 				<div class="form-group">
+					<div class="col-md-offset-2 col-md-6"><label>Atividade ou Projeto</label>
+						<select class="form-control" name="idFuncao" id="inputSubject" >
+							<option value='0'></option>
+							<?php  geraOpcao("funcao","descricao"); ?>
+						</select>
+					</div>
+					<div class="col-md-6"><label>Nome Simplificado</label>
+						<select class="form-control" name="idSubfuncao" id="inputSubject" >
+							<option value='0'></option>
+							<?php  geraOpcao("subfuncao","descricao"); ?>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Programa</label>
 						<select class="form-control" name="idPrograma" id="inputSubject" >
 							<option value='0'></option>
