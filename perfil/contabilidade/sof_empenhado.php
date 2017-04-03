@@ -290,7 +290,7 @@
 			if($query_insere)
 			{
 				$mensagem .= "Arquivo inserido na tabela empenhado_raw. <br />";
-<<<<<<< HEAD
+
 				$sql_atualiza_idOrgao = "UPDATE orcamento_central, 
 					empenhado_raw 
 					SET idOrgao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,1,2) 
@@ -364,7 +364,7 @@
 					FROM empenhado_raw 
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-=======
+
 				$sql_atualiza_idOrgao = "UPDATE orcamento_central, empenhado_raw SET
 idOrgao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,1,2) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
@@ -407,7 +407,7 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_empenhado = "UPDATE orcamento_central, empenhado_raw SET
 empenhado = (SELECT DISTINCT SUM(VAL_TOT_EPH)-SUM(VAL_TOT_CANC_EPH) AS TOTAL_EMPENHADO FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
->>>>>>> a0fca66ac20ff4053b1e4b8bf8c5bdad1fb00385
+
 				$query_atualiza0 = mysqli_query($con,$sql_atualiza_idOrgao);
 				$query_atualiza1 = mysqli_query($con,$sql_atualiza_idUnidade);
 				$query_atualiza2 = mysqli_query($con,$sql_atualiza_idFuncao);
