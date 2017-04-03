@@ -7,7 +7,7 @@
 		// Tamanho máximo do arquivo (em Bytes)
 		$_UP['tamanho'] = 1024 * 1024 * 50; // 2Mb
 		// Array com as extensões permitidas
-		$_UP['extensoes'] = array('xls', 'xlsx');
+		$_UP['extensoes'] = array('xls', 'xlsx','csv');
 		// Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
 		$_UP['renomeia'] = true;
 		// Array com os tipos de erros de upload do PHP
@@ -58,6 +58,9 @@
 				$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
 				$objPHPExcel = $objReader->load($inputFileName);
+				
+				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+				$objWriter->save("teste");
 			}
 			catch(Exception $e)
 			{
