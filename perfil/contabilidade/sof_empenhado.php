@@ -337,17 +337,19 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$query_atualiza2 = mysqli_query($con,$sql_atualiza_idFuncao);
 				$query_atualiza3 = mysqli_query($con,$sql_atualiza_idSubFuncao);
 				$query_atualiza4 = mysqli_query($con,$sql_atualiza_idPrograma);
-				$query_atualiza5 = mysqli_query($con,$sql_atualiza_projetoAtividade);
-				$query_atualiza6 = mysqli_query($con,$sql_atualiza_idCategoriaEconomia);
-				$query_atualiza7 = mysqli_query($con,$sql_atualiza_idGrupoDespesa);
-				$query_atualiza8 = mysqli_query($con,$sql_atualiza_idModalidadeAplicada);
-				$query_atualiza9 = mysqli_query($con,$sql_atualiza_idElementoDespesa);
-				$query_atualiza10 = mysqli_query($con,$sql_atualiza_idFonte);
-				$query_atualiza11 = mysqli_query($con,$sql_atualiza_empenhado);
+				$query_atualiza5 = mysqli_query($con,$sql_atualiza_idRamo);
+				$query_atualiza6 = mysqli_query($con,$sql_atualiza_idAcao);		
+				$query_atualiza7 = mysqli_query($con,$sql_atualiza_projetoAtividade);
+				$query_atualiza8 = mysqli_query($con,$sql_atualiza_idCategoriaEconomia);
+				$query_atualiza9 = mysqli_query($con,$sql_atualiza_idGrupoDespesa);
+				$query_atualiza10 = mysqli_query($con,$sql_atualiza_idModalidadeAplicada);
+				$query_atualiza11 = mysqli_query($con,$sql_atualiza_idElementoDespesa);
+				$query_atualiza12 = mysqli_query($con,$sql_atualiza_idFonte);
+				$query_atualiza13 = mysqli_query($con,$sql_atualiza_empenhado);
 			}
 			else
 			{
-				$mensagem .= "erro ao inserir. <br />";
+				$mensagem .= "Erro ao inserir. <br />";
 			}
 		}
 		else
