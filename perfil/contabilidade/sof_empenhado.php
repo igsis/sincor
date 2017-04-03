@@ -305,6 +305,12 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_idPrograma = "UPDATE orcamento_central, empenhado_raw SET
 idPrograma = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,14,4) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idRamo = "UPDATE orcamento_central, empenhado_raw SET
+idRamo = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,19,1) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idAcao = "UPDATE orcamento_central, empenhado_raw SET
+idAcao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,21,3) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_projetoAtividade = "UPDATE orcamento_central, empenhado_raw SET
 projetoAtividade = (SELECT DISTINCT COD_PROJ_ATVD_SOF_P FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
