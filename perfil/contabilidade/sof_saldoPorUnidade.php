@@ -70,6 +70,16 @@
 			$sheet = $objPHPExcel->getSheet(0); 
 			$highestRow = $sheet->getHighestRow(); 
 			$highestColumn = $sheet->getHighestColumn();
+			//Apagamos a tabela orcamento_central
+			$sql_limpa = "TRUNCATE TABLE orcamento_central";
+			if(mysqli_query($con,$sql_limpa))
+			{
+				$mensagem .= "<br />Tabela orcamento_central limpa.<br />";	
+			}
+			else
+			{
+				$mensagem .= "Erro ao limpar a tabela orcamento_central.<br />";	
+			}
 			//Apagamos a tabela saldo_unidade
 			$sql_limpa = "TRUNCATE TABLE saldo_unidade";
 			if(mysqli_query($con,$sql_limpa))

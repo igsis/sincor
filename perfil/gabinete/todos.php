@@ -9,13 +9,13 @@ while($orcamento = mysqli_fetch_array($query_orcamento))
 {
 	$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
 	$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
-	$acao = recuperaDados("acao","id",$orcamento['idAcao']);			
+	$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);		
 				
 	$x[$i]['id'] = $orcamento['id'];
 	$x[$i]['idOrgao'] = $orgao['descricao'];
 	$x[$i]['idUnidade'] = $unidade['descricao'];
-	$x[$i]['idAcao'] = $acao['id'];
-	$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplificada'];
+	$x[$i]['idAcao'] = $projeto['id'];
+	$x[$i]['descricaoSimplificada'] = $projeto['descricaoSimplificada'];
 	$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
 	$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
 	$i++;			

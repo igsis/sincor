@@ -149,13 +149,13 @@ if(isset($_POST['pesquisar']))
 		{
 			$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
 			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
-			$acao = recuperaDados("acao","id",$orcamento['idAcao']);			
+			$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);			
 						
 			$x[$i]['id'] = $orcamento['id'];
 			$x[$i]['idOrgao'] = $orgao['descricao'];
 			$x[$i]['idUnidade'] = $unidade['descricao'];
-			$x[$i]['idAcao'] = $acao['id'];
-			$x[$i]['descricaoSimplificada'] = $acao['descricaoSimplificada'];
+			$x[$i]['idAcao'] = $projeto['id'];
+			$x[$i]['descricaoSimplificada'] = $projeto['descricaoSimplificada'];
 			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
 			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
 			$i++;			
@@ -278,7 +278,7 @@ else
 					<div class="col-md-6"><label>Número do Projeto / Atividade</label>
 						<select class="form-control" name="idProjetoAtividade" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("Projeto_atividade","id"); ?>
+							<?php  geraCombobox("projeto_atividade",0,"id"); ?>
 						</select>
 					</div>
 				</div>
@@ -287,7 +287,23 @@ else
 					<div class="col-md-offset-2 col-md-6"><label>Nome Simplificado</label>
 						<select class="form-control" name="descricaoSimplificada" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("Projeto_atividade","descricaoSimplificada"); ?>
+							<?php
+							$sql = "SELECT * FROM projeto_atividade ORDER BY 2";		
+							$con = bancoMysqli();
+							$query = mysqli_query($con,$sql);
+							while($option = mysqli_fetch_row($query))
+							{
+								if($option[0] == $select)
+								{
+									echo "<option value='".$option[0]."' selected >".$option[1]."</option>";	
+								}
+								else
+								{
+									echo "<option value='".$option[0]."'>".$option[1]."</option>";	
+								}
+							}?>
+							
+							<?php // geraOpcao("Projeto_atividade","descricaoSimplificada"); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Fonte</label>
