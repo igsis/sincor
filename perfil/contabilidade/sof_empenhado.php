@@ -290,6 +290,81 @@
 			if($query_insere)
 			{
 				$mensagem .= "Arquivo inserido na tabela empenhado_raw. <br />";
+
+				$sql_atualiza_idOrgao = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idOrgao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,1,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idUnidade = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idUnidade = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,4,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idFuncao = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idFuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,7,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idSubFuncao = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idSubfuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,10,3) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idPrograma = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idPrograma = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,14,4) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_projetoAtividade = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET projetoAtividade = (SELECT DISTINCT COD_PROJ_ATVD_SOF_P 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idCategoriaEconomia = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idCategoriaEconomica = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,25,1) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idGrupoDespesa = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idGrupoDespesa = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,26,1) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idModalidadeAplicada = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idModalidadeAplicada = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,27,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idElementoDespesa = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idElementoDespesa = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,29,4) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idFonte = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET idFonte = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,34,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_empenhado = "UPDATE orcamento_central, 
+					empenhado_raw 
+					SET empenhado = (SELECT DISTINCT SUM(VAL_TOT_EPH)-SUM(VAL_TOT_CANC_EPH) 
+					AS TOTAL_EMPENHADO 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+
 				$sql_atualiza_idOrgao = "UPDATE orcamento_central, empenhado_raw SET
 idOrgao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,1,2) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
@@ -304,6 +379,12 @@ idSubfuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,10,3) FROM empenhado_ra
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_idPrograma = "UPDATE orcamento_central, empenhado_raw SET
 idPrograma = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,14,4) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idRamo = "UPDATE orcamento_central, empenhado_raw SET
+idRamo = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,19,1) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idAcao = "UPDATE orcamento_central, empenhado_raw SET
+idAcao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,21,3) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_projetoAtividade = "UPDATE orcamento_central, empenhado_raw SET
 projetoAtividade = (SELECT DISTINCT COD_PROJ_ATVD_SOF_P FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
@@ -326,29 +407,32 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_empenhado = "UPDATE orcamento_central, empenhado_raw SET
 empenhado = (SELECT DISTINCT SUM(VAL_TOT_EPH)-SUM(VAL_TOT_CANC_EPH) AS TOTAL_EMPENHADO FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+
 				$query_atualiza0 = mysqli_query($con,$sql_atualiza_idOrgao);
 				$query_atualiza1 = mysqli_query($con,$sql_atualiza_idUnidade);
 				$query_atualiza2 = mysqli_query($con,$sql_atualiza_idFuncao);
 				$query_atualiza3 = mysqli_query($con,$sql_atualiza_idSubFuncao);
 				$query_atualiza4 = mysqli_query($con,$sql_atualiza_idPrograma);
-				$query_atualiza5 = mysqli_query($con,$sql_atualiza_projetoAtividade);
-				$query_atualiza6 = mysqli_query($con,$sql_atualiza_idCategoriaEconomia);
-				$query_atualiza7 = mysqli_query($con,$sql_atualiza_idGrupoDespesa);
-				$query_atualiza8 = mysqli_query($con,$sql_atualiza_idModalidadeAplicada);
-				$query_atualiza9 = mysqli_query($con,$sql_atualiza_idElementoDespesa);
-				$query_atualiza10 = mysqli_query($con,$sql_atualiza_idFonte);
-				$query_atualiza11 = mysqli_query($con,$sql_atualiza_empenhado);
+				$query_atualiza5 = mysqli_query($con,$sql_atualiza_idRamo);
+				$query_atualiza6 = mysqli_query($con,$sql_atualiza_idAcao);		
+				$query_atualiza7 = mysqli_query($con,$sql_atualiza_projetoAtividade);
+				$query_atualiza8 = mysqli_query($con,$sql_atualiza_idCategoriaEconomia);
+				$query_atualiza9 = mysqli_query($con,$sql_atualiza_idGrupoDespesa);
+				$query_atualiza10 = mysqli_query($con,$sql_atualiza_idModalidadeAplicada);
+				$query_atualiza11 = mysqli_query($con,$sql_atualiza_idElementoDespesa);
+				$query_atualiza12 = mysqli_query($con,$sql_atualiza_idFonte);
+				$query_atualiza13 = mysqli_query($con,$sql_atualiza_empenhado);
 			}
 			else
 			{
-				$mensagem .= "erro ao inserir. <br />";
+				$mensagem .= "Erro ao inserir. <br />";
 			}
 		}
 		else
 		{
 			// Não foi possível fazer o upload, provavelmente a pasta está incorreta
 			$mensagem =  "Não foi possível enviar o arquivo, tente novamente";
-		}	
+		}
 	}
 ?>
 <section id="contact" class="home-section bg-white">

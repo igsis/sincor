@@ -7,7 +7,7 @@
 		// Tamanho máximo do arquivo (em Bytes)
 		$_UP['tamanho'] = 1024 * 1024 * 50; // 2Mb
 		// Array com as extensões permitidas
-		$_UP['extensoes'] = array('xls', 'xlsx');
+		$_UP['extensoes'] = array('xls', 'xlsx','csv');
 		// Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
 		$_UP['renomeia'] = true;
 		// Array com os tipos de erros de upload do PHP
@@ -58,6 +58,9 @@
 				$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 				$objReader = PHPExcel_IOFactory::createReader($inputFileType);
 				$objPHPExcel = $objReader->load($inputFileName);
+				
+				$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'CSV');
+				$objWriter->save("teste");
 			}
 			catch(Exception $e)
 			{
@@ -67,6 +70,16 @@
 			$sheet = $objPHPExcel->getSheet(0); 
 			$highestRow = $sheet->getHighestRow(); 
 			$highestColumn = $sheet->getHighestColumn();
+			//Apagamos a tabela orcamento_central
+			$sql_limpa = "TRUNCATE TABLE orcamento_central";
+			if(mysqli_query($con,$sql_limpa))
+			{
+				$mensagem .= "<br />Tabela orcamento_central limpa.<br />";	
+			}
+			else
+			{
+				$mensagem .= "Erro ao limpar a tabela orcamento_central.<br />";	
+			}
 			//Apagamos a tabela saldo_unidade
 			$sql_limpa = "TRUNCATE TABLE saldo_unidade";
 			if(mysqli_query($con,$sql_limpa))
