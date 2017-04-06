@@ -432,11 +432,9 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 
 				while($orcamento = mysqli_fetch_array($query_orcamento))
 				{
-					$x[$i]['projetoAtividade'] = $projetoAtividade;
-					$x[$i]['idElementoDespesa'] = $elemento;
-					$i++;
+					$projetoAtividade = $orcamento['projetoAtividade'];
+					$elemento = $orcamento['idElementoDespesa'];
 
-					  
 					if ($projetoAtividade == '1024' && $elemento == '3900')
 					{
 						$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 1";
