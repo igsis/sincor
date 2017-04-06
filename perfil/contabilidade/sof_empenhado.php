@@ -422,6 +422,71 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$query_atualiza11 = mysqli_query($con,$sql_atualiza_idElementoDespesa);
 				$query_atualiza12 = mysqli_query($con,$sql_atualiza_idFonte);
 				$query_atualiza13 = mysqli_query($con,$sql_atualiza_empenhado);
+				
+				
+				/************ TESTE DESCRIÇÃO SIMPLIFICADA *****************/
+				$sql_orcamento = "SELECT * FROM orcamento_central";
+				$query_orcamento = mysqli_query($con,$sql_orcamento);
+							
+				$i = 0;		
+
+				while($orcamento = mysqli_fetch_array($query_orcamento))
+				{
+					$x[$i]['projetoAtividade'] = $projetoAtividade;
+					$x[$i]['idElementoDespesa'] = $elemento;
+					$i++;
+
+					  
+					if ($projetoAtividade == '1024' && $elemento == '3900')
+					{
+						$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 1";
+						//"Criação da Casa da Capoeira";
+					}
+					
+					else
+					{
+						if ($projetoAtividade == '1324' && $elemento == '3900')
+						{
+						$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 2";
+						//"Implantação do Fundo Municipal de Cultura";
+						}
+						else
+						{
+							if ($projetoAtividade == '1331' && $elemento == '3900')
+							{
+								$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 3";
+								//"E523";
+							}
+							else
+							{
+								if ($projetoAtividade == '1333' && $elemento == '3900')
+								{
+									$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 4";
+									//"E532";
+								}
+								else
+								{
+									if ($projetoAtividade == '1334' && $elemento == '3900')
+									{
+										$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 5";
+										//"E534";
+									}
+									else
+									{
+										if ($projetoAtividade == '2100' && ($elemento == '1100' || $elemento == '9600'))
+										{
+											$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 4";
+											//"E537";
+										}
+									}	
+								}	
+							}	
+						}	
+					}					
+					$query_atualiza = mysqli_query($con,$sql_atualiza);
+				}
+				/************ TESTE DESCRIÇÃO SIMPLIFICADA *****************/	
+					
 			}
 			else
 			{
