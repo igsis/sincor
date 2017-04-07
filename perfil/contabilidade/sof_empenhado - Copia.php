@@ -414,7 +414,7 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$query_atualiza13 = mysqli_query($con,$sql_atualiza_empenhado);
 				
 				
-				/************ DESCRIÇÃO SIMPLIFICADA *****************/
+				/************ TESTE DESCRIÇÃO SIMPLIFICADA *****************/
 				$sql_orcamento = "SELECT * FROM orcamento_central";
 				$query_orcamento = mysqli_query($con,$sql_orcamento);
 							
@@ -424,28 +424,59 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				{
 					$projetoAtividade = $orcamento['projetoAtividade'];
 					$elemento = $orcamento['idElementoDespesa'];
-					
-					switch (true)
-					{
 
-						case ($projetoAtividade == '1024' && $elemento == '3900'):
-							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 1";
-							$query_atualiza = mysqli_query($con,$sql_atualiza);
-						break;	
-						case ($projetoAtividade == '2100' && ($elemento == '1100' || $elemento == '9600')):
-							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 4";
-							$query_atualiza = mysqli_query($con,$sql_atualiza);
-						break;
-						case ($projetoAtividade == '2100' && ($elemento == '1400' || $elemento == '3000' || $elemento == '3900')):
-							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 5";
-							$query_atualiza = mysqli_query($con,$sql_atualiza);
-						break;
-						break;
-						default:
-						//do nothing
+					if ($projetoAtividade == '1024' && $elemento == '3900')
+					{
+						$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 1";
+						//"Criação da Casa da Capoeira";
 					}
+					
+					else
+					{
+						if ($projetoAtividade == '1324' && $elemento == '3900')
+						{
+						$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 2";
+						//"Implantação do Fundo Municipal de Cultura";
+						}
+						else
+						{
+							if ($projetoAtividade == '1331' && $elemento == '3900')
+							{
+								$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 3";
+								//"E523";
+							}
+							else
+							{
+								if ($projetoAtividade == '1333' && $elemento == '3900')
+								{
+									$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 4";
+									//"E532";
+									$query_atualiza = mysqli_query($con,$sql_atualiza);
+								}
+								else
+								{
+									if ($projetoAtividade == '1334' && $elemento == '3900')
+									{
+										$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 5";
+										//"E534
+										$query_atualiza = mysqli_query($con,$sql_atualiza);
+									}
+									else
+									{
+										if ($projetoAtividade == '2100' && ($elemento == '1100' || $elemento == '9600'))
+										{
+											$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 4";
+											//"E537";											
+											$query_atualiza = mysqli_query($con,$sql_atualiza);
+										}
+									}	
+								}	
+							}	
+						}		
+					}					
+					
 				}
-				/************ DESCRIÇÃO SIMPLIFICADA *****************/	
+				/************ TESTE DESCRIÇÃO SIMPLIFICADA *****************/	
 					
 			}
 			else
