@@ -822,9 +822,16 @@
 						//do nothing
 						break;
 					}//fim switch
-				}
-				/************ DESCRIÇÃO SIMPLIFICADA *****************/						
-			}
+				}/************ DESCRIÇÃO SIMPLIFICADA - FIM *****************/	
+				
+				/* DESCRIÇÃO COMPLETA */
+				$sql_update_descCompleta = "UPDATE orcamento_central, completa_orcamento
+					SET completa = (SELECT completa FROM completa_orcamento
+					WHERE orcamento_central.projetoAtividade = completa_orcamento.projetoAtividade AND orcamento_central.idElementoDespesa = completa_orcamento.elemento) 
+					WHERE orcamento_central.projetoAtividade = completa_orcamento.projetoAtividade AND orcamento_central.idElementoDespesa = completa_orcamento.elemento";
+				$query_update_descCompleta	= mysqli_query($con,$sql_update_descCompleta);
+				/* DESCRIÇÃO COMPLETA - FIM */
+			}			
 			else
 			{
 				$mensagem .= "Erro ao inserir. <br />";
