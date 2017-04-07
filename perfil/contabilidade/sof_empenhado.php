@@ -354,49 +354,75 @@
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 
 				$sql_atualiza_idOrgao = "UPDATE orcamento_central, empenhado_raw 
-					SET idOrgao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,1,2) FROM empenhado_raw
+					SET idOrgao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,1,2) 
+					FROM empenhado_raw
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				$sql_atualiza_idUnidade = "UPDATE orcamento_central, empenhado_raw 
-					SET idUnidade = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,4,2) FROM empenhado_raw 
+					SET idUnidade = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,4,2) 
+					FROM empenhado_raw 
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
 					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idFuncao = "UPDATE orcamento_central, empenhado_raw SET
-idFuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,7,2) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idSubFuncao = "UPDATE orcamento_central, empenhado_raw SET
-idSubfuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,10,3) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idPrograma = "UPDATE orcamento_central, empenhado_raw SET
-idPrograma = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,14,4) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idRamo = "UPDATE orcamento_central, empenhado_raw SET
-idRamo = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,19,1) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idAcao = "UPDATE orcamento_central, empenhado_raw SET
-idAcao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,21,3) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_projetoAtividade = "UPDATE orcamento_central, empenhado_raw SET
-projetoAtividade = (SELECT DISTINCT COD_PROJ_ATVD_SOF_P FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idCategoriaEconomia = "UPDATE orcamento_central, empenhado_raw SET
-idCategoriaEconomica = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,25,1) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idGrupoDespesa = "UPDATE orcamento_central, empenhado_raw SET
-idGrupoDespesa = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,26,1) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idModalidadeAplicada = "UPDATE orcamento_central, empenhado_raw SET
-idModalidadeAplicada = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,27,2) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idElementoDespesa = "UPDATE orcamento_central, empenhado_raw SET
-idElementoDespesa = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,29,4) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_idFonte = "UPDATE orcamento_central, empenhado_raw SET
-idFonte = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,34,2) FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
-				$sql_atualiza_empenhado = "UPDATE orcamento_central, empenhado_raw SET
-empenhado = (SELECT DISTINCT SUM(VAL_TOT_EPH)-SUM(VAL_TOT_CANC_EPH) AS TOTAL_EMPENHADO FROM empenhado_raw WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
-WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idFuncao = "UPDATE orcamento_central, empenhado_raw 
+					SET idFuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,7,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idSubFuncao = "UPDATE orcamento_central, empenhado_raw 
+					SET idSubfuncao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,10,3) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idPrograma = "UPDATE orcamento_central, empenhado_raw 
+					SET idPrograma = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,14,4) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idRamo = "UPDATE orcamento_central, empenhado_raw 
+					SET idRamo = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,19,1) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idAcao = "UPDATE orcamento_central, empenhado_raw 
+					SET idAcao = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,21,3) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_projetoAtividade = "UPDATE orcamento_central, empenhado_raw 
+					SET projetoAtividade = (SELECT DISTINCT COD_PROJ_ATVD_SOF_P 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idCategoriaEconomia = "UPDATE orcamento_central, empenhado_raw 
+					SET idCategoriaEconomica = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,25,1) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idGrupoDespesa = "UPDATE orcamento_central, empenhado_raw 
+					SET idGrupoDespesa = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,26,1) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idModalidadeAplicada = "UPDATE orcamento_central, empenhado_raw 
+					SET idModalidadeAplicada = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,27,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idElementoDespesa = "UPDATE orcamento_central, empenhado_raw 
+					SET idElementoDespesa = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,29,4) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_idFonte = "UPDATE orcamento_central, empenhado_raw 
+					SET idFonte = (SELECT DISTINCT SUBSTRING(TXT_DOTACAO_FMT,34,2) 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
+				$sql_atualiza_empenhado = "UPDATE orcamento_central, empenhado_raw 
+					SET empenhado = (SELECT DISTINCT SUM(VAL_TOT_EPH)-SUM(VAL_TOT_CANC_EPH) AS TOTAL_EMPENHADO 
+					FROM empenhado_raw 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT) 
+					WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 
 				$query_atualiza0 = mysqli_query($con,$sql_atualiza_idOrgao);
 				$query_atualiza1 = mysqli_query($con,$sql_atualiza_idUnidade);
@@ -417,392 +443,387 @@ WHERE orcamento_central.dotacao = empenhado_raw.TXT_DOTACAO_FMT";
 				/************ DESCRIÇÃO SIMPLIFICADA *****************/
 				$sql_orcamento = "SELECT * FROM orcamento_central";
 				$query_orcamento = mysqli_query($con,$sql_orcamento);
-							
-				$i = 0;		
-
+				
 				while($orcamento = mysqli_fetch_array($query_orcamento))
 				{
 					$projetoAtividade = $orcamento['projetoAtividade'];
-					$elemento = $orcamento['idElementoDespesa'];
-					
+					$elemento = $orcamento['idElementoDespesa'];					
 					switch (true)
 					{
-
 						case ($projetoAtividade == '1024' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 1";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1324' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 2";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1331' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 3";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;						
-						case ($projetoAtividade == '2100' && ($elemento == '1100' || $elemento == '9600')):
+						case ($projetoAtividade == '1333' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 4";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '2100' && ($elemento == '1400' || $elemento == '3000' || $elemento == '3900')):
+						case ($projetoAtividade == '1334' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 5";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1335' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 6";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1336' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 7";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1337' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 8";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1338' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 9";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1341' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 10";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1342' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 11";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1343' && $elemento == '5200'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 12";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1344' && $elemento == ''):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 13";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1346' && $elemento == ''):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 14";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1348' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 15";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1407' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 16";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1662' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 17";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1818' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 18";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1819' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 19";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1820' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 20";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1828' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 21";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1829' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 22";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1836' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 23";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1837' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 24";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1842' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 25";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1844' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 26";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1845' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 27";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1850' && ($elemento == '3600' || $elemento == '3900' || $elemento == '4700')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 28";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1851' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 29";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1860' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 30";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1861' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 31";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1862' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 32";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1863' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 33";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1865' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 34";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1866' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 35";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1867' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 36";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1868' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 37";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1869' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 38";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1870' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 39";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1871' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 40";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1872' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 41";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1873' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 42";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1874' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 43";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1875' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 44";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1876' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 45";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1877' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 46";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1878' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 47";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1879' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 48";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1881' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 49";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1882' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 50";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1883' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 51";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1885' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 52";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1892' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 53";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1900' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 54";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1901' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 55";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1914' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 56";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1916' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 57";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1917' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 58";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1918' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 59";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1919' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 60";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1920' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 61";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1921' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 62";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1922' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 63";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1923' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 64";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1924' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 65";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1927' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 66";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1930' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 67";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1931' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 68";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1935' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 69";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1950' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 70";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '1951' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 71";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2025' && ($elemento == '14'|| $elemento == '3000' || $elemento == '3300' || $elemento == '3600' || $elemento == '3900' || $elemento == '5200')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 72";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2026' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 73";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2034' && $elemento == '3600'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 74";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2100' && ($elemento == '14'|| $elemento == '3000' || $elemento == '3300' || $elemento == '3900' || $elemento == '14'|| $elemento == '3000' || $elemento == '3300' || $elemento == '3600' || $elemento == '3900' || $elemento == '4800' || $elemento == '5200')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 75";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2100' && ($elemento == '11' || $elemento == '4600' || $elemento == '4900' || $elemento == '9600')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 76";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2118' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 77";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2164' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 78";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '2171' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 79";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '3400' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 80";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '3401' && ($elemento == '3600' || $elemento == '3900' || $elemento == '4700')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 81";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '4309' && ($elemento == '3600' || $elemento == '3900' || $elemento == '4700')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 82";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '4311' && ($elemento == '3100' || $elemento == '3600' || $elemento == '3900' || $elemento == '4700')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 83";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '4312' && ($elemento == '3900' || $elemento == '4700' || $elemento == '5200')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 84";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '5958' && $elemento == '6500'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 85";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '5965' && $elemento == '5100'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 86";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '6353' && ($elemento == '3600' || $elemento == '3900' || $elemento == '4700' || $elemento == '4800' || $elemento == '9300')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 87";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '6354' && ($elemento == '3100' || $elemento == '3600' || $elemento == '3900' || $elemento == '4700')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 88";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '6358' && ($elemento == '4100' || $elemento == '4300')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 89";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '6387' && ($elemento == '1400' || $elemento == '3000' || $elemento == '3300' || $elemento == '3600' || $elemento == '3900' || $elemento == '4700' || $elemento == '5200')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 90";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '6409' && ($elemento == '3000' || $elemento == '3900' || $elemento == '5200')):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 91";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;
-						case ($projetoAtividade == '' && $elemento == ''):
+						case ($projetoAtividade == '3702' && $elemento == '3900'):
 							$sql_atualiza = "UPDATE orcamento_central SET idDescricaoSimplificada = 92";
 							$query_atualiza = mysqli_query($con,$sql_atualiza);
 						break;						
 						default:
 						//do nothing
 						break;
-					}
+					}//fim switch
 				}
-				/************ DESCRIÇÃO SIMPLIFICADA *****************/	
-					
+				/************ DESCRIÇÃO SIMPLIFICADA *****************/						
 			}
 			else
 			{
