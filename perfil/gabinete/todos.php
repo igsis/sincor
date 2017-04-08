@@ -1,6 +1,6 @@
 ﻿<?php 
 $con = bancoMysqli();
-$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE idFuncao = '13' GROUP BY idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
+$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE idFuncao = '13' GROUP BY idOrgao, idUnidade, idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
 $query_orcamento = mysqli_query($con,$sql_orcamento);
 			
 $i = 0;		

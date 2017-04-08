@@ -24,40 +24,8 @@ if(isset($_POST['pesquisar']))
 	$idFonte = $_POST['idFonte'];
 	$dotacao = trim($_POST['dotacao']);
 
-	if($idOrgao == "" AND $idUnidade == "" AND $idFuncao == "" AND $idSubfuncao == "" AND $idRamo == "" AND $idProjetoAtividade == "" AND $idFonte == "" AND $descricaoSimplificada == "" AND dotacao == "")
-	{
-?>
-		<section id="services" class="home-section bg-white">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-offset-2 col-md-8">
-						<div class="section-heading">
-							<h2>Busca por Evento - Reabertura</h2>
-							<p>É preciso ao menos um critério de busca ou você pesquisou por um pedido inexistente. Tente novamente.</p>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-offset-2 col-md-8">
-							<h5><?php if(isset($mensagem)){ echo $mensagem; } ?>
-														
-							<h1>COPIAR O FORMULÁRIO AQUI</h1>
-							
-						</div>
-					</div><br />  
-				</div>			
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8">
-						<input type="hidden" name="pesquisar" value="1" />
-						<input type="submit" class="btn btn-theme btn-lg btn-block" value="Pesquisar">
-						</form>
-					</div>
-				</div>
-			</div>
-		</section>	
-<?php
-	}
-	else
-	{
+	
+	
 		$con = bancoMysqli();
 		if($idOrgao != '0')
 		{
@@ -162,7 +130,7 @@ if(isset($_POST['pesquisar']))
 			$i++;			
 		}
 		$x['num'] = $i;				
-	}
+	
 	$mensagem = "Total de eventos encontrados: ".$x['num'].".";
 ?>
 	<br /><br />
