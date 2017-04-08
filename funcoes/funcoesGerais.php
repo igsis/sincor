@@ -189,7 +189,7 @@
 	{
 		//grava na tabela log os inserts e updates
 		$logTratado = addslashes($log);
-		$idLogin = $_SESSION['idLogin'];
+		$idLogin = $_SESSION['idUsuario'];
 		$ip = $_SERVER["REMOTE_ADDR"];
 		$data = date('Y-m-d H:i:s');
 		$sql = "INSERT INTO `log` (`id`, `idUsuario`, `ip`, `data`, `descricao`) 

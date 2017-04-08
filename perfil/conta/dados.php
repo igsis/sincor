@@ -5,7 +5,7 @@
 		$nome = $_POST['nome'];
 		$email  = $_POST['email'];
 		$idUsuario = $_SESSION['idUsuario'];
-		$sql_atualiza_dados = "UPDATE usuario SET `nome` = '$nome', email = '$email' WHERE id = '$id';";
+		$sql_atualiza_dados = "UPDATE usuario SET `nome` = '$nome', email = '$email' WHERE id = '$idUsuario';";
 		$con = bancoMysqli();
 		$query_atualiza_dados = mysqli_query($con, $sql_atualiza_dados);	
 		if($query_atualiza_dados)
@@ -22,14 +22,13 @@
 ?>
 <section id="contact" class="home-section bg-white">
 	<div class="container">
-		<div class="form-group">
-			<h3>DADOS DO USUÁRIO</h3>
-			<p><?php if(isset($mensagem)){ echo $mensagem; } ?></p> 
-			<p>Se necessitar a edição de um campo não permitido neste formulário, contacte o administrador local.</p> 
-		</div>
+		<h3>DADOS DO USUÁRIO</h3>
+		<p><strong><?php if(isset($mensagem)){ echo $mensagem; } ?></strong></p> <br/>
+		<p>Se necessitar a edição de um campo não permitido neste formulário, contacte o administrador local.</p> 
+		
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10">
-				<form class="form-horizontal" role="form" action="?perfil=usuario&p=dados" method="post">
+				<form class="form-horizontal" role="form" action="?perfil=conta&p=dados" method="post">
 					<div class="form-group">
 						<div class="col-md-offset-2 col-md-8"><strong>Nome completo:</strong><br/>
 							<input type="text" class="form-control" id="nome" name="nome" value="<?php echo $conta['nome']; ?>" >
