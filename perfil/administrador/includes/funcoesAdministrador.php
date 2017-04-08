@@ -56,9 +56,9 @@
 				</td>"	;
 			echo "
 				<td class='list_description'>
-					<form method='POST' action='?perfil=administrador&p=users&idUsuario".$campo['id']."'>
+					<form method='POST' action='??perfil=administrador&p=usuario_editar&idUsuario=".$campo['id']."'>
 					<input type='hidden' name='apagar' value='".$campo['id']."' />
-					<input type ='submit' class='btn btn-theme  btn-block' value='Apagar usuário'>
+					<input type ='submit' class='btn btn-theme  btn-block' value='Apagar usuário' onclick='return confirm('Tem certeza que deseja realizar alterar?')'>
 					</form>
 				</td>"	;
 			echo "</tr>";		

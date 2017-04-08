@@ -1,9 +1,10 @@
 <?php
+	$idUsuario = $_GET['idUsuario'];
+	
 	if (isset ($_POST ['resetSenha']))
 	{
-		$senha = MD5 ('sincor2017');
-		$login = $_POST ['editarUser'];		
-		$sql_atualizar = "UPDATE `usuario` SET `senha` = '$senha' WHERE `id` = '$login'";
+		$senha = MD5('sincor2017');	
+		$sql_atualizar = "UPDATE `usuario` SET `senha` = '$senha' WHERE `id` = '$idUsuario'";
 		$con = bancoMysqli();
 		if(mysqli_query ($con,$sql_atualizar))
 		{
@@ -14,34 +15,26 @@
 			$mensagem = "Erro ao reiniciar senha! Tente novamente.";
 		}
 	}
-	// Atualiza o banco com as informações do post
+	
 	if(isset($_POST['atualizar']))
 	{
+		$idUsuario = $_GET['idUsuario'];
 		$nome = $_POST['nome'];
 		$login = $_POST['login'];
-		$existe = verificaExiste("usuario","login",$login,"0");
 		$email = $_POST['email'];
 		$perfil = $_POST['perfil'];
-
-		if($existe['numero'] == 0)
-		{
-			$sql_atualizar = "UPDATE INTO `usuario` (`nome`= '$nome', `login`= '$login', `email`= '$email', `perfil`= '$perfil') VALUES ('$nome', '$login', '$email', '$perfil')";
-			$con = bancoMysqli();
-			if(mysqli_query($con,$sql_atualizar))
-			{ 
-				$mensagem = "Usuário atualizado com sucesso!";
-			}
-			else
-			{
-				$mensagem = "Erro ao editar! Tente novamente.";
-			}
+		
+		$sql_atualizar = "UPDATE `usuario` SET `idPerfil`='$perfil',`nome`='$nome',`login`='$login',`email`='$email' WHERE id = '$idUsuario'";
+		$con = bancoMysqli();
+		if(mysqli_query($con,$sql_atualizar))
+		{ 
+			$mensagem = "Usuário atualizado com sucesso!";
 		}
 		else
 		{
-			$mensagem = "Tente novamente.";
+			$mensagem = "Erro ao editar! Tente novamente.";
 		}
 	} 
-	$idUsuario = $_GET['idUsuario'];
 	$recuperaUsuario = recuperaDados("usuario","id",$idUsuario); 
 ?>
 <section id="inserirUser" class="home-section bg-white">
@@ -49,15 +42,14 @@
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
                 <div class="text-hide">
-                    <h3>Editar Usuário</h3>
-					<h3><?php if(isset($mensagem)){echo $mensagem;} ?></h3>
+                    <h4>EDITAR USUÁRIO</h4>
+					<h6><?php if(isset($mensagem)){echo $mensagem;} ?></h6>
                 </div>
             </div>
     	</div>
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
-				<form method="POST" action="?perfil=administrador&p=usuario_editar" class="form-horizontal" role="form">
-					<input type="hidden" name="id"  value=<?php  echo $recuperaUsuario['id'] ?> />
+				<form method="POST" action="?perfil=administrador&p=usuario_editar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">
 					<!-- // Usuario !-->
 					<div class="col-md-offset-1 col-md-10">  
 						<div class="form-group">
@@ -94,16 +86,16 @@
 							<div class="col-md-offset-2 col-md-8">
 								<input type="hidden" name="atualizar" value="<?php echo $_POST['atualizar'] ?>"  />
 								<input type="hidden" name="atualizar" value="1"  />
-								<input type="submit" class="btn btn-theme btn-lg btn-block" value="Atualizar Usuário" onclick="return confirm('Tem certeza que deseja realizar alterar?')" />
+								<input type="submit" class="btn btn-theme btn-lg btn-block" value="Atualizar Usuário" />
 							</div>
 						</div>
 					</div>
 				</form>				
-				<form method="POST" action="?perfil=administrador&p=usuario_editar" class="form-horizontal" role="form">
+				<form method="POST" action="?perfil=administrador&p=usuario_editar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">
 					<div class="col-md-offset-1 col-md-10">
 						<input type="hidden" name="resetSenha" value="<?php echo $_POST['resetSenha'] ?>"  />
 						<input type="hidden" name="resetSenha" value="1"  />
-						<input type="submit" class="btn btn-theme btn-lg btn-blcok" name="resetSenha" value="Resetar Senha" /> <p> </p>
+						<input type="submit" class="btn btn-theme btn-lg btn-blcok" name="resetSenha" value="Resetar Senha" onclick="return confirm('Tem certeza que deseja realizar alterar?')"/> <p> </p>
 					</div> 
 				</form>	
 			</div>	
