@@ -140,7 +140,7 @@ if(isset($_POST['pesquisar']))
 			$filtro_dotacao = '';
 		}
 		
-		$sql_orcamento = "SELECT * FROM orcamento_central,projeto_atividade WHERE projetoAtividade = projeto_atividade.id $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_ramo $filtro_projetoAtividade $filtro_descricaoSimplificada $filtro_fonte $filtro_dotacao ORDER BY idOrgao, idUnidade";
+		$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_ramo $filtro_projetoAtividade $filtro_descricaoSimplificada $filtro_fonte $filtro_dotacao GROUP BY idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
 		$query_orcamento = mysqli_query($con,$sql_orcamento);
 					
 		$i = 0;		
@@ -149,13 +149,14 @@ if(isset($_POST['pesquisar']))
 		{
 			$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
 			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
-			$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);			
+			$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);
+			$descricaoS = recuperaDados("descricao_simplificada","id",$orcamento['idDescricaoSimplificada']);
 						
 			$x[$i]['id'] = $orcamento['id'];
 			$x[$i]['idOrgao'] = $orgao['descricao'];
 			$x[$i]['idUnidade'] = $unidade['descricao'];
 			$x[$i]['idAcao'] = $projeto['id'];
-			$x[$i]['descricaoSimplificada'] = $projeto['descricaoSimplificada'];
+			$x[$i]['descricaoSimplificada'] = $descricaoS['descricaoSimplificada'];
 			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
 			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
 			$i++;			
@@ -242,13 +243,13 @@ else
 					<div class="col-md-offset-2 col-md-6"><label>Orgão</label>
 						<select class="form-control" name="idOrgao" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("orgao","descricao"); ?>
+							<?php  geraOpcao("orgao",""); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Unidade</label>
 						<select class="form-control" name="idUnidade" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("unidade","descricao"); ?>
+							<?php  geraOpcao("unidade",""); ?>
 						</select>
 					</div>
 				</div>
@@ -257,13 +258,13 @@ else
 					<div class="col-md-offset-2 col-md-6"><label>Função</label>
 						<select class="form-control" name="idFuncao" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("funcao","descricao"); ?>
+							<?php  geraOpcao("funcao",""); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Subfunção</label>
 						<select class="form-control" name="idSubfuncao" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("subfuncao","descricao"); ?>
+							<?php  geraOpcao("subfuncao",""); ?>
 						</select>
 					</div>
 				</div>
@@ -272,7 +273,7 @@ else
 					<div class="col-md-offset-2 col-md-6"><label>Atividade ou Projeto</label>
 						<select class="form-control" name="idRamo" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("ramo","descricao"); ?>
+							<?php  geraOpcao("ramo",""); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Número do Projeto / Atividade</label>
@@ -287,29 +288,13 @@ else
 					<div class="col-md-offset-2 col-md-6"><label>Nome Simplificado</label>
 						<select class="form-control" name="descricaoSimplificada" id="inputSubject" >
 							<option value='0'></option>
-							<?php
-							$sql = "SELECT * FROM projeto_atividade ORDER BY 2";		
-							$con = bancoMysqli();
-							$query = mysqli_query($con,$sql);
-							while($option = mysqli_fetch_row($query))
-							{
-								if($option[0] == $select)
-								{
-									echo "<option value='".$option[0]."' selected >".$option[1]."</option>";	
-								}
-								else
-								{
-									echo "<option value='".$option[0]."'>".$option[1]."</option>";	
-								}
-							}?>
-							
-							<?php // geraOpcao("Projeto_atividade","descricaoSimplificada"); ?>
+							<?php  geraOpcao("descricao_simplificada",""); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Fonte</label>
 						<select class="form-control" name="idFonte" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("fonte","descricao"); ?>
+							<?php  geraOpcao("fonte",""); ?>
 						</select>
 					</div>
 				</div>

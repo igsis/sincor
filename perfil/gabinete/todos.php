@@ -1,6 +1,6 @@
 ﻿<?php 
 $con = bancoMysqli();
-$sql_orcamento = "SELECT * FROM orcamento_central WHERE idFuncao = '13' ORDER BY idOrgao, idUnidade";
+$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE idFuncao = '13' GROUP BY idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
 $query_orcamento = mysqli_query($con,$sql_orcamento);
 			
 $i = 0;		
@@ -8,17 +8,18 @@ $i = 0;
 while($orcamento = mysqli_fetch_array($query_orcamento))
 {
 	$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
-	$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
-	$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);		
-				
-	$x[$i]['id'] = $orcamento['id'];
-	$x[$i]['idOrgao'] = $orgao['descricao'];
-	$x[$i]['idUnidade'] = $unidade['descricao'];
-	$x[$i]['idAcao'] = $projeto['id'];
-	$x[$i]['descricaoSimplificada'] = $projeto['descricaoSimplificada'];
-	$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
-	$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
-	$i++;			
+			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
+			$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);
+			$descricaoS = recuperaDados("descricao_simplificada","id",$orcamento['idDescricaoSimplificada']);
+						
+			$x[$i]['id'] = $orcamento['id'];
+			$x[$i]['idOrgao'] = $orgao['descricao'];
+			$x[$i]['idUnidade'] = $unidade['descricao'];
+			$x[$i]['idAcao'] = $projeto['id'];
+			$x[$i]['descricaoSimplificada'] = $descricaoS['descricaoSimplificada'];
+			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
+			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
+			$i++;					
 }
 $x['num'] = $i;				
 
@@ -27,7 +28,7 @@ $x['num'] = $i;
 <section id="list_items">
 	<div class="container">
 		<br/>
-		<h6 align="left"><?php echo saudacao(); ?>, <?php echo $_SESSION['nome']; ?></h6>
+		<p align="left"><strong><?php echo saudacao(); ?>, <?php echo $_SESSION['nome']; ?></strong></p>
 		<?php
 			if ($x['num'] == 0)
 			{
