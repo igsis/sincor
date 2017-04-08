@@ -20,117 +20,115 @@ if(isset($_POST['pesquisar']))
 	$idSubfuncao = $_POST['idSubfuncao'];
 	$idRamo = $_POST['idRamo'];
 	$idProjetoAtividade = $_POST['idProjetoAtividade'];
-	$descricaoSimplificada = $_POST['descricaoSimplificada'];
+	$idDescricaoSimplificada = $_POST['idDescricaoSimplificada'];
 	$idFonte = $_POST['idFonte'];
 	$dotacao = trim($_POST['dotacao']);
-
+		
+	$con = bancoMysqli();
+	if($idOrgao != '0')
+	{
+		$filtro_orgao = " AND idOrgao = '$idOrgao'";
+	}
+	else
+	{
+		$filtro_orgao = '';
+	}
 	
+	if($idUnidade != '0')
+	{
+		$filtro_unidade = " AND idUnidade = '$idUnidade'";
+	}
+	else
+	{
+		$filtro_unidade = '';
+	}
 	
-		$con = bancoMysqli();
-		if($idOrgao != '0')
-		{
-			$filtro_orgao = " AND idOrgao = '$idOrgao'";
-		}
-		else
-		{
-			$filtro_orgao = '';
-		}
+	if($idFuncao != '0')
+	{
+		$filtro_funcao = " AND idFuncao = '$idFuncao'";
+	}
+	else
+	{
+		$filtro_funcao = '';
+	}
+	
+	if($idSubfuncao != '0')
+	{
+		$filtro_subfuncao = " AND idSubfuncao = '$idSubfuncao'";
+	}
+	else
+	{
+		$filtro_subfuncao = '';
+	}
 		
-		if($idUnidade != '0')
-		{
-			$filtro_unidade = " AND idUnidade = '$idUnidade'";
-		}
-		else
-		{
-			$filtro_unidade = '';
-		}
-		
-		if($idFuncao != '0')
-		{
-			$filtro_funcao = " AND idFuncao = '$idFuncao'";
-		}
-		else
-		{
-			$filtro_funcao = '';
-		}
-		
-		if($idSubfuncao != '0')
-		{
-			$filtro_subfuncao = " AND idSubfuncao = '$idSubfuncao'";
-		}
-		else
-		{
-			$filtro_subfuncao = '';
-		}
+	if($idRamo != '0')
+	{
+		$filtro_ramo = " AND idRamo = '$idRamo'";
+	}
+	else
+	{
+		$filtro_ramo = '';
+	}
 			
-		if($idRamo != '0')
-		{
-			$filtro_ramo = " AND idRamo = '$idRamo'";
-		}
-		else
-		{
-			$filtro_ramo = '';
-		}
-				
-		if($idProjetoAtividade != '0')
-		{
-			$filtro_projetoAtividade = " AND projetoAtividade = '$idProjetoAtividade'";
-		}
-		else
-		{
-			$filtro_projetoAtividade = '';
-		}
-		
-		if($descricaoSimplificada != '0')
-		{
-			$filtro_descricaoSimplificada = " AND descricaoSimplificada = '$idescricaoSimplificada'";
-		}
-		else
-		{
-			$filtro_descricaoSimplificada = "";
-		}
-		
-		if($idFonte != '0')
-		{
-			$filtro_fonte = " AND idFonte = '$idFonte'";
-		}
-		else
-		{
-			$filtro_fonte = '';
-		}
-		
-		if($dotacao != '')
-		{
-			$filtro_dotacao = " AND dotacao = '$dotacao'";
-		}
-		else
-		{
-			$filtro_dotacao = '';
-		}
-		
-		$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_ramo $filtro_projetoAtividade $filtro_descricaoSimplificada $filtro_fonte $filtro_dotacao GROUP BY idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
-		$query_orcamento = mysqli_query($con,$sql_orcamento);
-					
-		$i = 0;		
-
-		while($orcamento = mysqli_fetch_array($query_orcamento))
-		{
-			$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
-			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
-			$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);
-			$descricaoS = recuperaDados("descricao_simplificada","id",$orcamento['idDescricaoSimplificada']);
-						
-			$x[$i]['id'] = $orcamento['id'];
-			$x[$i]['idOrgao'] = $orgao['descricao'];
-			$x[$i]['idUnidade'] = $unidade['descricao'];
-			$x[$i]['idAcao'] = $projeto['id'];
-			$x[$i]['descricaoSimplificada'] = $descricaoS['descricaoSimplificada'];
-			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
-			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
-			$i++;			
-		}
-		$x['num'] = $i;				
+	if($idProjetoAtividade != '0')
+	{
+		$filtro_projetoAtividade = " AND projetoAtividade = '$idProjetoAtividade'";
+	}
+	else
+	{
+		$filtro_projetoAtividade = '';
+	}
 	
+	if($idDescricaoSimplificada != '0')
+	{
+		$filtro_descricaoSimplificada = " AND idDescricaoSimplificada = '$idDescricaoSimplificada'";
+	}
+	else
+	{
+		$filtro_descricaoSimplificada = "";
+	}
+	
+	if($idFonte != '0')
+	{
+		$filtro_fonte = " AND idFonte = '$idFonte'";
+	}
+	else
+	{
+		$filtro_fonte = '';
+	}
+	
+	if($dotacao != '')
+	{
+		$filtro_dotacao = " AND dotacao = '$dotacao'";
+	}
+	else
+	{
+		$filtro_dotacao = '';
+	}
+	
+	$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_ramo $filtro_projetoAtividade $filtro_descricaoSimplificada $filtro_fonte $filtro_dotacao GROUP BY idOrgao, idUnidade, idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
+	$query_orcamento = mysqli_query($con,$sql_orcamento);
+				
+	$i = 0;		
+
+	while($orcamento = mysqli_fetch_array($query_orcamento))
+	{
+		$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
+		$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
+		$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);
+		$descricaoS = recuperaDados("descricao_simplificada","id",$orcamento['idDescricaoSimplificada']);
+					
+		$x[$i]['id'] = $orcamento['id'];
+		$x[$i]['idOrgao'] = $orgao['descricao'];
+		$x[$i]['idUnidade'] = $unidade['descricao'];
+		$x[$i]['idAcao'] = $projeto['id'];
+		$x[$i]['descricaoSimplificada'] = $descricaoS['descricaoSimplificada'];
+		$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
+		$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
+		$i++;			
+	}
+	$x['num'] = $i;				
+
 	$mensagem = "Total de eventos encontrados: ".$x['num'].".";
 ?>
 	<br /><br />
@@ -254,7 +252,7 @@ else
 				
 				<div class="form-group">
 					<div class="col-md-offset-2 col-md-6"><label>Nome Simplificado</label>
-						<select class="form-control" name="descricaoSimplificada" id="inputSubject" >
+						<select class="form-control" name="idDescricaoSimplificada" id="inputSubject" >
 							<option value='0'></option>
 							<?php  geraOpcao("descricao_simplificada",""); ?>
 						</select>
