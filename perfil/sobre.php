@@ -17,7 +17,10 @@
 		<p>&nbsp;</p>
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-8">
-				<h4>Equipe SMC/S.T.I. Desenvolvimento</h4>
+				<h6>SINCOR - Sistema Integrado de Controle Orçamentário</h6>
+				<p><strong>Versão:</strong> 0.1</p>
+				<br/>
+				<h6>Equipe SMC/S.T.I. Desenvolvimento</h6>
 				<p>Adilson de Oliveira Lima</p>
 				<p>Ana Carolina Vieira Batista</p>
 				<p>Bruno Silva dos Santos</p>
@@ -25,7 +28,7 @@
 				<p>Lorelei Gabriele Castro Lourenço</p>
 				<p>William Cordeiro Fonseca</p>
 				<p>&nbsp;</p>
-				<p><strong>Contato: <a href="mailto:stidesenvolvimento@prefeitura.sp.gov.br">stidesenvolvimento@prefeitura.sp.gov.br</a></strong></p>
+				<p><strong>Contato: <a href="mailto:stidesenvolvimento@prefeitura.sp.gov.br">stidesenvolvimento@prefeitura.sp.gov.br</a></strong></p>				
 			</div>
 		</div>
 	</div>
