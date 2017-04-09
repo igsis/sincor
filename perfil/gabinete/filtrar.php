@@ -122,6 +122,7 @@ if(isset($_POST['pesquisar']))
 		$x[$i]['idOrgao'] = $orgao['descricao'];
 		$x[$i]['idUnidade'] = $unidade['descricao'];
 		$x[$i]['idAcao'] = $projeto['id'];
+		$x[$i]['idDescricaoSimplificada'] = $orcamento['idDescricaoSimplificada'];
 		$x[$i]['descricaoSimplificada'] = $descricaoS['descricaoSimplificada'];
 		$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
 		$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
@@ -166,13 +167,13 @@ if(isset($_POST['pesquisar']))
 						</thead>
 					<tbody>
 				<?php
-					$link="index.php?perfil=gabinete&p=filtrar"; //arrumar
+					$link="index.php?perfil=gabinete&p=detalhes&idDescr=";
 					$data=date('Y');
 					for($h = 0; $h < $x['num']; $h++)
 					{		
 						echo '<tr>';
 						echo '<td class="list_description">'.$x[$h]['idOrgao']." - ".$x[$h]['idUnidade'].'</td>';
-						echo "<td class='list_description'> <a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['descricaoSimplificada']."</a></td>";
+						echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['idDescricaoSimplificada']."'>".$x[$h]['descricaoSimplificada']."</a></td>";
 						echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']).'</td> ';
 						echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['totalCongelado']).'</td> ';
 						echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']-$x[$h]['totalCongelado']).'</td>';

@@ -1,6 +1,8 @@
 ﻿<?php 
+$idDescr = $_GET['idDescr'];
+
 $con = bancoMysqli();
-$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE idFuncao = '13' GROUP BY idOrgao, idUnidade, idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
+$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  saldoOrcado, `creditoTramitacao`, totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE idDescricaoSimplificada = '$idDescr' ORDER BY idOrgao, idUnidade";
 $query_orcamento = mysqli_query($con,$sql_orcamento);
 			
 $i = 0;		
@@ -44,7 +46,6 @@ $x['num'] = $i;
 				echo "<p><b>Foram encontrados ".$x['num']." registros</b></p>";
 			}
 		?>
-		<p><a href="?perfil=gabinete&p=filtrar">Aplicar filtro</a></p>
 		<div class="table-responsive list_info">
 		<?php 
 			if($x['num'] == 0)
@@ -54,10 +55,10 @@ $x['num'] = $i;
 			{ 
 		?>
 				<table class="table table-condensed">
-					<thead>
+					<thead><h6><?php echo $descricaoS['descricaoSimplificada']; ?></h6>
 						<tr class="list_menu">
-						<td>Orgão / Unidade</td>	
-						<td>Nome Simplificado</td>
+						<td>Orgão / Unidade</td>
+						<td>Descrição completa</td>
 						<td>Saldo Orçado</td>
 						<td>Saldo Congelado</td>
 						<td>Saldo Descongelado</td>
@@ -65,13 +66,11 @@ $x['num'] = $i;
 					</thead>
 				<tbody>
 			<?php
-				$link="index.php?perfil=gabinete&p=detalhes&idDescr="; 
-				$data=date('Y');
 				for($h = 0; $h < $x['num']; $h++)
 				{		
 					echo '<tr>';
 					echo '<td class="list_description">'.$x[$h]['idOrgao']." - ".$x[$h]['idUnidade'].'</td>';
-					echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['idDescricaoSimplificada']."'>".$x[$h]['descricaoSimplificada']."</a></td>";
+					echo '<td class="list_description"></td>';
 					echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']).'</td> ';
 					echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['totalCongelado']).'</td> ';
 					echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']-$x[$h]['totalCongelado']).'</td>';
