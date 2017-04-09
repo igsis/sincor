@@ -48,10 +48,9 @@
             </div>
     	</div>
 		<div class="row">
-			<div class="col-md-offset-2 col-md-8">
-				<form method="POST" action="?perfil=administrador&p=usuario_editar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">
-					<!-- // Usuario !-->
-					<div class="col-md-offset-1 col-md-10">  
+			<div class="col-md-offset-2 col-md-8">				
+				<div class="col-md-offset-1 col-md-10">  
+					<form method="POST" action="?perfil=administrador&p=usuario_editar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">	
 						<div class="form-group">
 							<div class="col-md-offset-2 col-md-8">
 								<label>Nome Completo:</label>
@@ -89,15 +88,25 @@
 								<input type="submit" class="btn btn-theme btn-lg btn-block" value="Atualizar Usuário" />
 							</div>
 						</div>
+					</form>
+				</div>
+				<div class="col-md-offset-1 col-md-10"> 
+					<div class="form-group">	
+						<div class="col-md-offset-2 col-md-6">
+							<form method="POST" action="?perfil=administrador&p=usuario_editar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">					
+								<input type="hidden" name="resetSenha" value="<?php echo $_POST['resetSenha'] ?>"  />
+								<input type="hidden" name="resetSenha" value="1"  />
+								<input type="submit" class="btn btn-theme btn-lg btn-blcok" name="resetSenha" value="Resetar Senha" onclick="return confirm('Tem certeza que deseja realizar alterar?')"/> 					
+							</form>
+						</div>
+						<div class="col-md-6">
+							<form method="POST" action="?perfil=administrador&p=usuario_listar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">					
+								<input type="hidden" name="apagar" value="<?php echo $_POST['apagar'] ?>"  />
+								<input type="submit" class="btn btn-theme btn-lg btn-blcok" value="Apagar" onclick="return confirm('Tem certeza que deseja realizar alterar?')"/> 					
+							</form>
+						</div>
 					</div>
-				</form>				
-				<form method="POST" action="?perfil=administrador&p=usuario_editar&idUsuario=<?php echo $idUsuario ?>" class="form-horizontal" role="form">
-					<div class="col-md-offset-1 col-md-10">
-						<input type="hidden" name="resetSenha" value="<?php echo $_POST['resetSenha'] ?>"  />
-						<input type="hidden" name="resetSenha" value="1"  />
-						<input type="submit" class="btn btn-theme btn-lg btn-blcok" name="resetSenha" value="Resetar Senha" onclick="return confirm('Tem certeza que deseja realizar alterar?')"/> <p> </p>
-					</div> 
-				</form>	
+				</div>	
 			</div>	
 		</div>    
 	</div>
