@@ -67,10 +67,10 @@
 				</table>"; 
 	}
 	
-	function listaLogAdministrador($idUsuario)
+	function listaLogAdministrador()
 	{ 
 		$con = bancoMysqli();
-		$sql = "SELECT * FROM ig_log WHERE idLog";
+		$sql = "SELECT * FROM log ORDER BY data DESC";
 		$query = mysqli_query($con,$sql);
 		echo "
 			<table class='table table-condensed'>
@@ -79,8 +79,6 @@
 						<td>Endereço de IP</td>
 						<td>data</td>
 						<td>Descrição</td>
-						<td width='10%'></td>
-						<td width='10%'></td>
 					</tr>
 				</thead>
 				<tbody>";
@@ -88,14 +86,14 @@
 		{
 				echo "<tr>";				
 				echo "<td class='list_description'>".$campo['ip']."</td>";
-				echo "<td class='list_description'>".$campo['data']."</td>";
+				echo "<td class='list_description'>".exibirDataHoraBr($campo['data'])."</td>";
 				echo "<td class='list_description'>".$campo['descricao']."</td>";
 				echo "<td class='list_description'></td>";
-				echo " 
+				/*echo " 
 					<td class='list_description'>
 						<form method='POST' action='?perfil='>
 							<input type='hidden' name='carregar' value='".$campo['id']."' />
-							<input type ='submit' class='btn btn-theme btn-block' value='carregar'></td></form>" ;
+							<input type ='submit' class='btn btn-theme btn-block' value='carregar'></td></form>" ;*/
 		}
 		echo "
 			</tbody>
