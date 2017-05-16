@@ -16,9 +16,7 @@ if(isset($_POST['pesquisar']))
 {		
 	$idOrgao = $_POST['idOrgao'];
 	$idUnidade = $_POST['idUnidade'];
-	$idFuncao = $_POST['idFuncao'];
-	$idSubfuncao = $_POST['idSubfuncao'];
-	$idRamo = $_POST['idRamo'];
+	$idElementoDespesa = $_POST['idElementoDespesa'];
 	$idProjetoAtividade = $_POST['idProjetoAtividade'];
 	$idDescricaoSimplificada = $_POST['idDescricaoSimplificada'];
 	$idFonte = $_POST['idFonte'];
@@ -42,32 +40,14 @@ if(isset($_POST['pesquisar']))
 	{
 		$filtro_unidade = '';
 	}
-	
-	if($idFuncao != '0')
+			
+	if($idElementoDespesa != '0')
 	{
-		$filtro_funcao = " AND idFuncao = '$idFuncao'";
+		$filtro_despesa = " AND idElementoDespesa = '$idElementoDespesa'";
 	}
 	else
 	{
-		$filtro_funcao = '';
-	}
-	
-	if($idSubfuncao != '0')
-	{
-		$filtro_subfuncao = " AND idSubfuncao = '$idSubfuncao'";
-	}
-	else
-	{
-		$filtro_subfuncao = '';
-	}
-		
-	if($idRamo != '0')
-	{
-		$filtro_ramo = " AND idRamo = '$idRamo'";
-	}
-	else
-	{
-		$filtro_ramo = '';
+		$filtro_despesa = '';
 	}
 			
 	if($idProjetoAtividade != '0')
@@ -106,7 +86,7 @@ if(isset($_POST['pesquisar']))
 		$filtro_dotacao = '';
 	}
 	
-	$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_funcao $filtro_subfuncao $filtro_ramo $filtro_projetoAtividade $filtro_descricaoSimplificada $filtro_fonte $filtro_dotacao GROUP BY idOrgao, idUnidade, idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
+	$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idElementoDespesa`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE id != '' $filtro_orgao $filtro_unidade $filtro_despesa $filtro_projetoAtividade $filtro_descricaoSimplificada $filtro_fonte $filtro_dotacao GROUP BY idOrgao, idUnidade, idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
 	$query_orcamento = mysqli_query($con,$sql_orcamento);
 				
 	$i = 0;		
@@ -222,25 +202,10 @@ else
 				</div>
 				
 				<div class="form-group">
-					<div class="col-md-offset-2 col-md-6"><label>Função</label>
-						<select class="form-control" name="idFuncao" id="inputSubject" >
+					<div class="col-md-offset-2 col-md-6"><label>Nome Simplificado</label>
+						<select class="form-control" name="idDescricaoSimplificada" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("funcao",""); ?>
-						</select>
-					</div>
-					<div class="col-md-6"><label>Subfunção</label>
-						<select class="form-control" name="idSubfuncao" id="inputSubject" >
-							<option value='0'></option>
-							<?php  geraOpcao("subfuncao",""); ?>
-						</select>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-6"><label>Atividade ou Projeto</label>
-						<select class="form-control" name="idRamo" id="inputSubject" >
-							<option value='0'></option>
-							<?php  geraOpcao("ramo",""); ?>
+							<?php  geraOpcao("descricao_simplificada",""); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Número do Projeto / Atividade</label>
@@ -251,11 +216,11 @@ else
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-6"><label>Nome Simplificado</label>
-						<select class="form-control" name="idDescricaoSimplificada" id="inputSubject" >
+				<div class="form-group">					
+					<div class="col-md-offset-2 col-md-6"><label>Elemento de Despesa</label>
+						<select class="form-control" name="idElementoDespesa" id="inputSubject" >
 							<option value='0'></option>
-							<?php  geraOpcao("descricao_simplificada",""); ?>
+							<?php  geraOpcao("despesa",""); ?>
 						</select>
 					</div>
 					<div class="col-md-6"><label>Fonte</label>
