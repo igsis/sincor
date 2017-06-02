@@ -1,26 +1,16 @@
 ﻿<?php 
 $con = bancoMysqli();
-$sql_orcamento = "SELECT `id`, `dotacao`, `idOrgao`, `idUnidade`, `idFuncao`, `idSubfuncao`, `idPrograma`, `idRamo`, `idAcao`, `idCategoriaEconomica`, `idGrupoDespesa`, `idModalidadeAplicada`, `idElementoDespesa`, `idFonte`, `idDescricaoSimplificada`, `idDescricaoCompleta`, `projetoAtividade`,  SUM(saldoOrcado) AS saldoOrcado, `creditoTramitacao`, SUM(totalCongelado) AS totalCongelado, saldoDotacao, `saldoReservas`, `empenhado` FROM orcamento_central WHERE idFuncao = '13' GROUP BY idOrgao, idUnidade, idDescricaoSimplificada ORDER BY idOrgao, idUnidade";
-$query_orcamento = mysqli_query($con,$sql_orcamento);
+$sql_pj = "SELECT `id`, `razaoSocial`, `cnpj` FROM `pessoa_juridica";
+$query_pj = mysqli_query($con,$sql_pj);
 			
 $i = 0;		
 
-while($orcamento = mysqli_fetch_array($query_orcamento))
-{
-	$orgao = recuperaDados("orgao","id",$orcamento['idOrgao']);
-			$unidade = recuperaDados("unidade","id",$orcamento['idUnidade']);	
-			$projeto = recuperaDados("projeto_atividade","id",$orcamento['projetoAtividade']);
-			$descricaoS = recuperaDados("descricao_simplificada","id",$orcamento['idDescricaoSimplificada']);
-						
-			$x[$i]['id'] = $orcamento['id'];
-			$x[$i]['idOrgao'] = $orgao['descricao'];
-			$x[$i]['idUnidade'] = $unidade['descricao'];
-			$x[$i]['idAcao'] = $projeto['id'];
-			$x[$i]['idDescricaoSimplificada'] = $orcamento['idDescricaoSimplificada'];
-			$x[$i]['descricaoSimplificada'] = $descricaoS['descricaoSimplificada'];
-			$x[$i]['saldoOrcado'] = $orcamento['saldoOrcado'];
-			$x[$i]['totalCongelado'] = $orcamento['totalCongelado'];
-			$i++;					
+while($pj = mysqli_fetch_array($query_pj))
+{	
+	$x[$i]['id'] = $pj['id'];
+	$x[$i]['razaoSocial'] = $pj['razaoSocial'];
+	$x[$i]['cnpj'] = $pj['cnpj'];
+	$i++;					
 }
 $x['num'] = $i;				
 
@@ -28,8 +18,16 @@ $x['num'] = $i;
 <br /><br />
 <section id="list_items">
 	<div class="container">
-		<br/>
-		<p align="left"><strong><?php echo saudacao(); ?>, <?php echo $_SESSION['nome']; ?></strong></p>
+		<br/>	
+		<p align="left"><strong><?php echo saudacao(); ?>, <?php echo $_SESSION['nome']; ?></strong></p>		
+		<p>&nbsp;</p>
+		<div class="form-group">
+			<div class="col-md-offset-1 col-md-3"><a href="?perfil=contratos&p=cadastro_pj" class="btn btn-theme btn-block">Cadastrar</a></div>
+			<div class="col-md-3"><br/></div>
+			<div class="col-md-4"><span class="notranslate" onMouseOver="_tipon(this)" onMouseOut="_tipoff()"><span class="google-src-text" style="direction: ltr; text-align: left"><script type=text/javascript language=JavaScript src=js/find2.js> </script></span><br/></div>
+		</div>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>		
 		<?php
 			if ($x['num'] == 0)
 			{
@@ -44,7 +42,7 @@ $x['num'] = $i;
 				echo "<p><b>Foram encontrados ".$x['num']." registros</b></p>";
 			}
 		?>
-		<p><a href="?perfil=gabinete&p=filtrar">Aplicar filtro</a></p>
+		
 		<div class="table-responsive list_info">
 		<?php 
 			if($x['num'] == 0)
@@ -56,25 +54,21 @@ $x['num'] = $i;
 				<table class="table table-condensed">
 					<thead>
 						<tr class="list_menu">
-						<td>Orgão / Unidade</td>	
-						<td>Nome Simplificado</td>
-						<td>Saldo Orçado</td>
-						<td>Saldo Congelado</td>
-						<td>Saldo Descongelado</td>
+							<td>ID</td>
+							<td>CNPJ</td>							
+							<td>Razão Social</td>
 						</tr>
 					</thead>
 				<tbody>
 			<?php
-				$link="index.php?perfil=gabinete&p=detalhes&idDescr="; 
+				$link="index.php?perfil=contratos&p=detalhes&id="; 
 				$data=date('Y');
 				for($h = 0; $h < $x['num']; $h++)
 				{		
 					echo '<tr>';
-					echo '<td class="list_description">'.$x[$h]['idOrgao']." - ".$x[$h]['idUnidade'].'</td>';
-					echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['idDescricaoSimplificada']."'>".$x[$h]['descricaoSimplificada']."</a></td>";
-					echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']).'</td> ';
-					echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['totalCongelado']).'</td> ';
-					echo '<td class="list_description"> R$ '.dinheiroParaBr($x[$h]['saldoOrcado']-$x[$h]['totalCongelado']).'</td>';
+					echo '<td class="list_description">'.$x[$h]['id'].'</td>';
+					echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['cnpj']."</a></td>";
+					echo '<td class="list_description">'.$x[$h]['razaoSocial'].'</td> ';
 					echo '</tr>';
 				}
 			?>					
