@@ -1,6 +1,6 @@
 <?php
 //geram o insert pro framework
-$pasta = "?perfil=gabinete&p=";
+$pasta = "?perfil=contratos&p=";
  ?>
 <div class="menu-area">
 	<div id="dl-menu" class="dl-menuwrapper">
