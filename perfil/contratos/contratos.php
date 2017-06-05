@@ -1,15 +1,15 @@
 ﻿<?php 
 $con = bancoMysqli();
-$sql_pj = "SELECT `id`, `razaoSocial`, `cnpj` FROM `pessoa_juridica";
-$query_pj = mysqli_query($con,$sql_pj);
+$sql_contratos = "SELECT `id`, `idOrgao`, `idUnidade`, `numeroSei`, `numeroProcessoAdm`, `idPessoaJuridica`, `idNatureza`, `objeto`, `dataLimite`, `termoContrato`, `idFiscal`, `idSuplente`, `anual`, `valorInicial`, `valorReajuste`, `valorMensal`, `valorAnual` FROM `contratos`";
+$query_contratos = mysqli_query($con,$sql_contratos);
 			
 $i = 0;		
 
-while($pj = mysqli_fetch_array($query_pj))
+while($contratos = mysqli_fetch_array($query_contratos))
 {	
-	$x[$i]['id'] = $pj['id'];
-	$x[$i]['razaoSocial'] = $pj['razaoSocial'];
-	$x[$i]['cnpj'] = $pj['cnpj'];
+	$x[$i]['id'] = $contratos['id'];
+	$x[$i]['numeroSei'] = $contratos['numeroSei'];
+	$x[$i]['numeroProcessoAdm'] = $contratos['numeroProcessoAdm'];
 	$i++;					
 }
 $x['num'] = $i;				
@@ -68,7 +68,7 @@ return;
 		<p align="left"><strong><?php echo saudacao(); ?>, <?php echo $_SESSION['nome']; ?></strong></p>		
 		<p>&nbsp;</p>
 		<div class="form-group">
-			<div class="col-md-offset-1 col-md-3"><a href="?perfil=contratos&p=cadastro_pj" class="btn btn-theme btn-block">Cadastrar</a></div>
+			<div class="col-md-offset-1 col-md-3"><a href="?perfil=contratos&p=cadastro_contratos" class="btn btn-theme btn-block">Cadastrar</a></div>
 			<div class="col-md-2"><br/></div>
 			<div class="col-md-5">
 				<form name="f1" action="" onSubmit="if(this.t1.value!=null && this.t1.value!='') findString(this.t1.value);return false">
@@ -107,8 +107,8 @@ return;
 							<thead>
 								<tr class="list_menu">
 									<td>ID</td>
-									<td>CNPJ</td>							
-									<td>Razão Social</td>
+									<td>Processo SEI</td>
+									<td>Processo Adm.</td>
 								</tr>
 							</thead>
 						<tbody>
@@ -119,8 +119,8 @@ return;
 						{		
 							echo '<tr>';
 							echo '<td class="list_description">'.$x[$h]['id'].'</td>';
-							echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['cnpj']."</a></td>";
-							echo '<td class="list_description">'.$x[$h]['razaoSocial'].'</td> ';
+							echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['numeroSei']."</a></td>";
+							echo '<td class="list_description">'.$x[$h]['numeroProcessoAdm'].'</td> ';
 							echo '</tr>';
 						}
 					?>					

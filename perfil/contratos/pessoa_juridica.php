@@ -112,9 +112,7 @@ return;
 								</tr>
 							</thead>
 						<tbody>
-					<?php
-						$link="index.php?perfil=contratos&p=detalhes&id="; 
-						$data=date('Y');
+					<?php						
 						for($h = 0; $h < $x['num']; $h++)
 						{		
 							echo '<tr>';
