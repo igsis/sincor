@@ -15,6 +15,52 @@ while($pj = mysqli_fetch_array($query_pj))
 $x['num'] = $i;				
 
 ?>
+<script language="JavaScript">
+<!--
+var TRange=null
+
+function findString (str) 
+{
+if (parseInt(navigator.appVersion)<4) return;
+var strFound;
+if (window.find) {
+
+// CODE FOR BROWSERS THAT SUPPORT window.find
+
+strFound=self.find(str);
+if (strFound && self.getSelection && !self.getSelection().anchorNode) {
+strFound=self.find(str)
+}
+if (!strFound) {
+strFound=self.find(str,0,1)
+while (self.find(str,0,1)) continue
+}
+}
+else if (navigator.appName.indexOf("Microsoft")!=-1) {
+
+// EXPLORER-SPECIFIC CODE
+
+if (TRange!=null) {
+TRange.collapse(false)
+strFound=TRange.findText(str)
+if (strFound) TRange.select()
+}
+if (TRange==null || strFound==0) {
+TRange=self.document.body.createTextRange()
+strFound=TRange.findText(str)
+if (strFound) TRange.select()
+}
+}
+else if (navigator.appName=="Opera") {
+alert ("Opera browsers not supported, sorry...")
+return;
+}
+if (!strFound) alert ("String '"+str+"' not found!")
+return;
+}
+//-->
+</script>
+
 <br /><br />
 <section id="list_items">
 	<div class="container">
@@ -23,8 +69,13 @@ $x['num'] = $i;
 		<p>&nbsp;</p>
 		<div class="form-group">
 			<div class="col-md-offset-1 col-md-3"><a href="?perfil=contratos&p=cadastro_pj" class="btn btn-theme btn-block">Cadastrar</a></div>
-			<div class="col-md-3"><br/></div>
-			<div class="col-md-4"><span class="notranslate" onMouseOver="_tipon(this)" onMouseOut="_tipoff()"><span class="google-src-text" style="direction: ltr; text-align: left"><script type=text/javascript language=JavaScript src=js/find2.js> </script></span><br/></div>
+			<div class="col-md-2"><br/></div>
+			<div class="col-md-5">
+				<form name="f1" action="" onSubmit="if(this.t1.value!=null && this.t1.value!='') findString(this.t1.value);return false">
+					<input type="text" name=t1 value="" size=30 placeholder="Pesquisar..."> <i><b>Pressione Enter</b></i>
+				<!--<input type="submit" name=b1 value="Pesquisar">-->
+				</form><br/>
+			</div>
 		</div>
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>		
@@ -42,41 +93,44 @@ $x['num'] = $i;
 				echo "<p><b>Foram encontrados ".$x['num']." registros</b></p>";
 			}
 		?>
-		
-		<div class="table-responsive list_info">
-		<?php 
-			if($x['num'] == 0)
-			{  
-			}
-			else
-			{ 
-		?>
-				<table class="table table-condensed">
-					<thead>
-						<tr class="list_menu">
-							<td>ID</td>
-							<td>CNPJ</td>							
-							<td>Razão Social</td>
-						</tr>
-					</thead>
-				<tbody>
-			<?php
-				$link="index.php?perfil=contratos&p=detalhes&id="; 
-				$data=date('Y');
-				for($h = 0; $h < $x['num']; $h++)
-				{		
-					echo '<tr>';
-					echo '<td class="list_description">'.$x[$h]['id'].'</td>';
-					echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['cnpj']."</a></td>";
-					echo '<td class="list_description">'.$x[$h]['razaoSocial'].'</td> ';
-					echo '</tr>';
-				}
-			?>					
-				</tbody>
-			</table>
-		<?php 
-			} 
-		?>		
+		<div class="form-group">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="table-responsive list_info">
+				<?php 
+					if($x['num'] == 0)
+					{  
+					}
+					else
+					{ 
+				?>
+						<table class="table table-condensed">
+							<thead>
+								<tr class="list_menu">
+									<td>ID</td>
+									<td>CNPJ</td>							
+									<td>Razão Social</td>
+								</tr>
+							</thead>
+						<tbody>
+					<?php
+						$link="index.php?perfil=contratos&p=detalhes&id="; 
+						$data=date('Y');
+						for($h = 0; $h < $x['num']; $h++)
+						{		
+							echo '<tr>';
+							echo '<td class="list_description">'.$x[$h]['id'].'</td>';
+							echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['cnpj']."</a></td>";
+							echo '<td class="list_description">'.$x[$h]['razaoSocial'].'</td> ';
+							echo '</tr>';
+						}
+					?>					
+						</tbody>
+					</table>
+				<?php 
+					} 
+				?>		
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
