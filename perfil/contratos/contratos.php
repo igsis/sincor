@@ -1,15 +1,35 @@
 ﻿<?php 
 $con = bancoMysqli();
-$sql_contratos = "SELECT `id`, `idOrgao`, `idUnidade`, `numeroSei`, `numeroProcessoAdm`, `idPessoaJuridica`, `idNatureza`, `objeto`, `dataLimite`, `termoContrato`, `idFiscal`, `idSuplente`, `anual`, `valorInicial`, `valorReajuste`, `valorMensal`, `valorAnual` FROM `contratos`";
+$sql_contratos = "SELECT `id`, `idOrgao`, `idUnidade`, `numeroSei`, `numeroProcessoAdm`, `idPessoaJuridica`, `idNatureza`, `objeto`, `dataLimite`, `termoContrato`, `idFiscal`, `idSuplente`, `anual`, `valorInicial`, `valorReajuste`, `valorMensal`, `valorAnual` FROM `contratos` ORDER BY id";
 $query_contratos = mysqli_query($con,$sql_contratos);
 			
 $i = 0;		
 
 while($contratos = mysqli_fetch_array($query_contratos))
 {	
+	$orgao = recuperaDados("orgao","id",$contratos['idOrgao']);
+	$unidade = recuperaDados("unidade","id",$contratos['idUnidade']);
+	$pj = recuperaDados("pessoa_juridica","id",$contratos['idPessoaJuridica']);
+	$natureza = recuperaDados("natureza","id",$contratos['idNatureza']);
+	$fiscal = recuperaDados("funcionarios","id",$contratos['idFiscal']);
+	//$suplente = recuperaDados("funcionarios","id",$contratos['idSuplente']);
 	$x[$i]['id'] = $contratos['id'];
+	$x[$i]['idOrgao'] = $orgao['descricao'];
+	$x[$i]['idUnidade'] = $unidade['descricao'];
 	$x[$i]['numeroSei'] = $contratos['numeroSei'];
 	$x[$i]['numeroProcessoAdm'] = $contratos['numeroProcessoAdm'];
+	$x[$i]['idPessoaJuridica'] = $pj['razaoSocial'];
+	$x[$i]['idNatureza'] = $natureza['natureza'];
+	$x[$i]['objeto'] = $contratos['objeto'];
+	$x[$i]['dataLimite'] = $contratos['dataLimite'];
+	$x[$i]['termoContrato'] = $contratos['termoContrato'];
+	$x[$i]['idFiscal'] = $fiscal['nome'];
+	//$x[$i]['idSuplente'] = $suplente['nome'];
+	$x[$i]['anual'] = $contratos['anual'];
+	$x[$i]['valorInicial'] = $contratos['valorInicial'];
+	$x[$i]['valorReajuste'] = $contratos['valorReajuste'];
+	$x[$i]['valorMensal'] = $contratos['valorMensal'];
+	$x[$i]['valorAnual'] = $contratos['valorAnual'];
 	$i++;					
 }
 $x['num'] = $i;				
@@ -93,44 +113,52 @@ return;
 				echo "<p><b>Foram encontrados ".$x['num']." registros</b></p>";
 			}
 		?>
-		<div class="form-group">
-			<div class="col-md-offset-1 col-md-10">
-				<div class="table-responsive list_info">
-				<?php 
-					if($x['num'] == 0)
-					{  
-					}
-					else
-					{ 
-				?>
-						<table class="table table-condensed">
-							<thead>
-								<tr class="list_menu">
-									<td>ID</td>
-									<td>Processo SEI</td>
-									<td>Processo Adm.</td>
-								</tr>
-							</thead>
-						<tbody>
-					<?php
-						$link="index.php?perfil=contratos&p=detalhes&id="; 
-						$data=date('Y');
-						for($h = 0; $h < $x['num']; $h++)
-						{		
-							echo '<tr>';
-							echo '<td class="list_description">'.$x[$h]['id'].'</td>';
-							echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['numeroSei']."</a></td>";
-							echo '<td class="list_description">'.$x[$h]['numeroProcessoAdm'].'</td> ';
-							echo '</tr>';
-						}
-					?>					
-						</tbody>
-					</table>
-				<?php 
-					} 
-				?>		
-				</div>
-			</div>
+		<div class="table-responsive list_info">
+		<?php 
+			if($x['num'] == 0)
+			{  
+			}
+			else
+			{ 
+		?>
+				<table class="table table-condensed">
+					<thead>
+						<tr class="list_menu">
+							<td>ID</td>
+							<td>Orgão / Unidade</td>
+							<td>Processo SEI</td>
+							<td>Processo Adm.</td>
+							<td>RazãoSocial</td>
+							<td>Natureza</td>
+							<td>Objeto</td>
+							<td>Data Limite</td>
+							<td>Termo de Contrato</td>
+						</tr>
+					</thead>
+				<tbody>
+			<?php
+				$link="index.php?perfil=contratos&p=detalhes&id="; 
+				$data=date('Y');
+				for($h = 0; $h < $x['num']; $h++)
+				{		
+					echo '<tr>';
+					echo '<td class="list_description">'.$x[$h]['id'].'</td>';
+					echo '<td class="list_description">'.$x[$h]['idOrgao']." - ".$x[$h]['idUnidade'].'</td>';
+					echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['numeroSei']."</a></td>";
+					echo '<td class="list_description">'.$x[$h]['numeroProcessoAdm'].'</td>';
+					echo '<td class="list_description">'.$x[$h]['idPessoaJuridica'].'</td>';
+					echo '<td class="list_description">'.$x[$h]['idNatureza'].'</td>';
+					echo '<td class="list_description">'.$x[$h]['objeto'].'</td>';
+					echo '<td class="list_description">'.$x[$h]['dataLimite'].'</td> ';
+					echo '<td class="list_description">'.$x[$h]['termoContrato'].'</td> ';
+					echo '</tr>';
+				}
+			?>					
+				</tbody>
+			</table>
+		<?php 
+			} 
+		?>		
 		</div>
 	</div>
 </section>
