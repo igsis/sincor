@@ -119,7 +119,7 @@ return;
 						{		
 							echo '<tr>';
 							echo '<td class="list_description">'.$x[$h]['id'].'</td>';
-							echo "<td class='list_description'>".$x[$h]['cnpj']."</td>";
+							echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['cnpj']."</a></td>";
 							echo '<td class="list_description">'.$x[$h]['razaoSocial'].'</td> ';
 							echo '</tr>';
 						}
