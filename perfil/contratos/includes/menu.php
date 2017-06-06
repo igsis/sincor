@@ -9,7 +9,7 @@ $pasta = "?perfil=contratos&p=";
 			<li><a href="<?php echo $pasta ?>pessoa_juridica">Pessoa Jurídica</a></li>
 			<li><a href="<?php echo $pasta ?>funcionarios">Funcionários</a></li>
 			<li><a href="<?php echo $pasta ?>natureza_contrato">Natureza Contrato</a></li>
-			<li><a href="<?php echo $pasta ?>contratos&order=id">Contratos</a></li>
+			<li><a href="<?php echo $pasta ?>contratos&order=contratos.id">Contratos</a></li>
 			<li style="color:white;">-------------------------</li>
 			<li><a href="?secao=perfil">Carregar Módulos</a></li>
 			<li><a href="?perfil=sobre">Sobre</a></li>
