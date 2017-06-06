@@ -1,6 +1,8 @@
 ﻿<?php 
+$order = $_GET['order'];
+
 $con = bancoMysqli();
-$sql_contratos = "SELECT `id`, `idOrgao`, `idUnidade`, `numeroSei`, `numeroProcessoAdm`, `idPessoaJuridica`, `idNatureza`, `objeto`, `dataLimite`, `termoContrato`, `idFiscal`, `idSuplente`, `anual`, `valorInicial`, `valorReajuste`, `valorMensal`, `valorAnual` FROM `contratos` ORDER BY id";
+$sql_contratos = "SELECT `id`, `idOrgao`, `idUnidade`, `numeroSei`, `numeroProcessoAdm`, `idPessoaJuridica`, `idNatureza`, `objeto`, `dataLimite`, `termoContrato`, `idFiscal`, `idSuplente`, `anual`, `valorInicial`, `valorReajuste`, `valorMensal`, `valorAnual` FROM `contratos` ORDER BY $order";
 $query_contratos = mysqli_query($con,$sql_contratos);
 			
 $i = 0;		
@@ -123,34 +125,48 @@ return;
 		?>
 				<table class="table table-condensed">
 					<thead>
+						<tr>
+							<td colspan="11">Ordernar por: 
+								<a href="index.php?perfil=contratos&p=contratos&order=id">ID</a> |
+								<a href="index.php?perfil=contratos&p=contratos&order=idOrgao">Orgão</a> | 
+								<a href="index.php?perfil=contratos&p=contratos&order=idUnidade">Unidade</a> | 
+								<a href="index.php?perfil=contratos&p=contratos&order=idOrgao">Razão Social</a> | 
+								<a href="index.php?perfil=contratos&p=contratos&order=idOrgao">Natureza</a> | 
+								<a href="index.php?perfil=contratos&p=contratos&order=dataLimite">Data Limite</a>
+							</td>
+						</tr>	
 						<tr class="list_menu">
 							<td>ID</td>
 							<td>Orgão / Unidade</td>
 							<td>Processo SEI</td>
-							<td>Processo Adm.</td>
-							<td>RazãoSocial</td>
+							<td>Razão Social</td>
 							<td>Natureza</td>
 							<td>Objeto</td>
 							<td>Data Limite</td>
 							<td>Termo de Contrato</td>
+							<td>Fiscal</td>
+							<td>Valor Mensal</td>
+							<td>Valor Anual</td>
 						</tr>
 					</thead>
 				<tbody>
 			<?php
-				$link="index.php?perfil=contratos&p=detalhes&id="; 
+				$link1="index.php?perfil=contratos&p=detalhes&id="; 
 				$data=date('Y');
 				for($h = 0; $h < $x['num']; $h++)
 				{		
 					echo '<tr>';
 					echo '<td class="list_description">'.$x[$h]['id'].'</td>';
 					echo '<td class="list_description">'.$x[$h]['idOrgao']." - ".$x[$h]['idUnidade'].'</td>';
-					echo "<td class='list_description'><a target=_blank href='".$link.$x[$h]['id']."'>".$x[$h]['numeroSei']."</a></td>";
-					echo '<td class="list_description">'.$x[$h]['numeroProcessoAdm'].'</td>';
+					echo "<td class='list_description'><a target=_blank href='".$link1.$x[$h]['id']."'>".$x[$h]['numeroSei']."</a></td>";
 					echo '<td class="list_description">'.$x[$h]['idPessoaJuridica'].'</td>';
 					echo '<td class="list_description">'.$x[$h]['idNatureza'].'</td>';
 					echo '<td class="list_description">'.$x[$h]['objeto'].'</td>';
-					echo '<td class="list_description">'.$x[$h]['dataLimite'].'</td> ';
-					echo '<td class="list_description">'.$x[$h]['termoContrato'].'</td> ';
+					echo '<td class="list_description">'.exibirDataBr($x[$h]['dataLimite']).'</td>';
+					echo '<td class="list_description">'.$x[$h]['termoContrato'].'</td>';
+					echo '<td class="list_description">'.$x[$h]['idFiscal'].'</td>';
+					echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['valorMensal']).'</td>';
+					echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['valorAnual']).'</td>';
 					echo '</tr>';
 				}
 			?>					
