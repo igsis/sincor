@@ -15,7 +15,7 @@ while($vigencia = mysqli_fetch_array($query_vigencia))
 	$x[$i]['dataInicio'] = $vigencia['dataInicio'];
 	$x[$i]['dataFinal'] = $vigencia['dataFinal'];
 	$x[$i]['anual'] = $vigencia['anual'];
-	$x[$i]['valorIncial'] = $vigencia['valorIncial'];
+	$x[$i]['valorInicial'] = $vigencia['valorInicial'];
 	$x[$i]['taxaReajuste'] = $vigencia['taxaReajuste'];
 	$x[$i]['valorMensal'] = $vigencia['valorMensal'];
 	$x[$i]['valorAnual'] = $vigencia['valorAnual'];
@@ -145,7 +145,7 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 								echo '<td class="list_description">'.$x[$h]['idContratos'].'</td>';
 								echo '<td class="list_description">'.exibirDataBr($x[$h]['dataInicio']).'</td>';
 								echo '<td class="list_description">'.exibirDataBr($x[$h]['dataFinal']).'</td>';
-								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorIncial']).'</td>';
+								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorInicial']).'</td>';
 								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorMensal']).'</td>';
 								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorAnual']).'</td>';
 								echo '</tr>';
