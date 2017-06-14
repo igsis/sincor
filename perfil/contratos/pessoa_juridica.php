@@ -109,6 +109,7 @@ return;
 									<td>ID</td>
 									<td>CNPJ</td>							
 									<td>Razão Social</td>
+									<td></td>
 								</tr>
 							</thead>
 						<tbody>
@@ -119,6 +120,7 @@ return;
 							echo '<td class="list_description">'.$x[$h]['id'].'</td>';
 							echo "<td class='list_description'>".$x[$h]['cnpj']."</td>";
 							echo '<td class="list_description">'.$x[$h]['razaoSocial'].'</td> ';
+							echo '<td><a href="?perfil=contratos&p=cadastro_pessoa_juridica&idPj='.$x[$h]['id'].'" class="btn btn-theme btn-block">Editar</a></td>';
 							echo '</tr>';
 						}
 					?>					
