@@ -106,6 +106,7 @@ return;
 								<tr class="list_menu">
 									<td>ID</td>
 									<td>Funcionário</td>
+									<td></td>
 								</tr>
 							</thead>
 						<tbody>
@@ -115,6 +116,7 @@ return;
 							echo '<tr>';
 							echo '<td class="list_description">'.$x[$h]['id'].'</td>';
 							echo "<td class='list_description'>".$x[$h]['nome']."</td>";
+							echo '<td><a href="?perfil=contratos&p=cadastro_funcionarios&idFunc='.$x[$h]['id'].'" class="btn btn-theme btn-block">Editar</a></td>';
 							echo '</tr>';
 						}
 					?>					
