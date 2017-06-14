@@ -3,7 +3,7 @@ $id = $_GET['id'];
 
 $con = bancoMysqli();
 $sql_vigencia = "
-	SELECT `id`, `idContratos`, `dataInicio`, `dataFinal`, `anual`, `valorIncial`, `taxaReajuste`, `valorReajuste`, `valorMensal`, `valorAnual`, `publicado` FROM `vigencia` WHERE idContratos = $id";
+	SELECT `id`, `idContratos`, `dataInicio`, `dataFinal`, `anual`, `valorInicial`, `taxaReajuste`, `valorReajuste`, `valorMensal`, `valorAnual`, `publicado` FROM `vigencia` WHERE idContratos = $id";
 $query_vigencia = mysqli_query($con,$sql_vigencia);
 			
 $i = 0;		
@@ -119,7 +119,7 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 				<?php 
 					if($x['num'] == 0)
 					{  
-						echo "<br/><p><b>Nenhum registro foi encontrado</b></p>";
+						echo "<p>&nbsp;</p><p>&nbsp;</p><p><b>Nenhum registro foi encontrado</b></p>";
 					}
 					else
 					{ 
