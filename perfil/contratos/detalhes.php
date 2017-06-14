@@ -17,6 +17,7 @@ while($vigencia = mysqli_fetch_array($query_vigencia))
 	$x[$i]['anual'] = $vigencia['anual'];
 	$x[$i]['valorInicial'] = $vigencia['valorInicial'];
 	$x[$i]['taxaReajuste'] = $vigencia['taxaReajuste'];
+	$x[$i]['valorMensal'] = $vigencia['valorReajuste'];
 	$x[$i]['valorMensal'] = $vigencia['valorMensal'];
 	$x[$i]['valorAnual'] = $vigencia['valorAnual'];
 	$i++;					
@@ -93,6 +94,7 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 			</div>
 		</div>	
 		<p>&nbsp;</p>
+		<h5>Detalhes da Vigência</h5>
 		<?php
 			if ($x['num'] == 0)
 			{
@@ -119,7 +121,7 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 				<?php 
 					if($x['num'] == 0)
 					{  
-						echo "<p>&nbsp;</p><p>&nbsp;</p><p><b>Nenhum registro foi encontrado</b></p>";
+						echo "<p>&nbsp;</p><div class='col-md-offset-4 col-md-4'><a href='?perfil=contratos&p=cadastro_contratos' class='btn btn-theme btn-block'>Cadastrar</a></div>";
 					}
 					else
 					{ 
@@ -128,12 +130,14 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 							<thead>
 								<tr class="list_menu">
 									<td>ID</td>
-									<td>idContratos</td>
+									<td>idContrato</td>
 									<td>Data Início</td>
 									<td>Data Final</td>
 									<td>Valor Inicial</td>
+									<td>Taxa %</td>
 									<td>Valor Mensal</td>
-									<td>Valor Anual</td>						
+									<td>Valor Anual</td>
+									<td></td>
 								</tr>
 							</thead>
 							<tbody>
@@ -146,8 +150,10 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 								echo '<td class="list_description">'.exibirDataBr($x[$h]['dataInicio']).'</td>';
 								echo '<td class="list_description">'.exibirDataBr($x[$h]['dataFinal']).'</td>';
 								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorInicial']).'</td>';
+								echo '<td class="list_description">'.$x[$h]['taxaReajuste'].'</td>';
 								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorMensal']).'</td>';
 								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorAnual']).'</td>';
+								echo '<td><a href="?perfil=contratos&p=cadastro_vigencia&idVig='.$x[$h]['id'].'" class="btn btn-theme btn-block">Editar</a></td>';
 								echo '</tr>';
 							}
 						?>					
