@@ -32,11 +32,6 @@ while($contratos = mysqli_fetch_array($query_contratos))
 	$x[$i]['termoContrato'] = $contratos['termoContrato'];
 	$x[$i]['idFiscal'] = $fiscal['nome'];
 	$x[$i]['idSuplente'] = $suplente['nome'];
-	$x[$i]['anual'] = $contratos['anual'];
-	$x[$i]['valorInicial'] = $contratos['valorInicial'];
-	$x[$i]['valorReajuste'] = $contratos['valorReajuste'];
-	$x[$i]['valorMensal'] = $contratos['valorMensal'];
-	$x[$i]['valorAnual'] = $contratos['valorAnual'];
 	$i++;					
 }
 $x['num'] = $i;				
@@ -149,8 +144,6 @@ return;
 							<td>Data Limite</td>
 							<td>Termo de Contrato</td>
 							<td>Fiscal</td>
-							<td>Valor Mensal</td>
-							<td>Valor Anual</td>
 						</tr>
 					</thead>
 				<tbody>
@@ -169,8 +162,6 @@ return;
 					echo '<td class="list_description">'.exibirDataBr($x[$h]['dataLimite']).'</td>';
 					echo '<td class="list_description">'.$x[$h]['termoContrato'].'</td>';
 					echo '<td class="list_description">'.$x[$h]['idFiscal'].'</td>';
-					echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['valorMensal']).'</td>';
-					echo '<td class="list_description">R$ '.dinheiroParaBr($x[$h]['valorAnual']).'</td>';
 					echo '</tr>';
 				}
 			?>					

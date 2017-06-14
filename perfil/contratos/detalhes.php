@@ -3,7 +3,7 @@ $id = $_GET['id'];
 
 $con = bancoMysqli();
 $sql_vigencia = "
-	SELECT `id`, `idContratos`, `dataInicio`, `dataFinal` FROM `vigencia` WHERE idContratos = $id";
+	SELECT `id`, `idContratos`, `dataInicio`, `dataFinal`, `anual`, `valorIncial`, `taxaReajuste`, `valorReajuste`, `valorMensal`, `valorAnual`, `publicado` FROM `vigencia` WHERE idContratos = $id";
 $query_vigencia = mysqli_query($con,$sql_vigencia);
 			
 $i = 0;		
@@ -14,6 +14,11 @@ while($vigencia = mysqli_fetch_array($query_vigencia))
 	$x[$i]['idContratos'] = $vigencia['idContratos'];
 	$x[$i]['dataInicio'] = $vigencia['dataInicio'];
 	$x[$i]['dataFinal'] = $vigencia['dataFinal'];
+	$x[$i]['anual'] = $vigencia['anual'];
+	$x[$i]['valorIncial'] = $vigencia['valorIncial'];
+	$x[$i]['taxaReajuste'] = $vigencia['taxaReajuste'];
+	$x[$i]['valorMensal'] = $vigencia['valorMensal'];
+	$x[$i]['valorAnual'] = $vigencia['valorAnual'];
 	$i++;					
 }
 $x['num'] = $i;	
@@ -84,33 +89,7 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 					<div class="col-md-6"><strong>Suplente:</strong><br/>
 						<input type="text" class="form-control" id="nome" name="nome" value="<?php echo $suplente['nome']; ?>" ><br/>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-8"><strong>Anual:</strong>
-						<input type="text" class="form-control" id="nome" name="nome" value="<?php echo $contratos['anual']; ?>" ><br/>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-6"><strong>Valor Inicial:</strong><br/>
-						<input type="text" class="form-control" id="nome" name="nome" value="<?php echo dinheiroParaBr($contratos['valorInicial']); ?>" ><br/>
-					</div>
-					<div class="col-md-6"><strong>Valor Reajuste:</strong><br/>
-						<input type="text" class="form-control" id="nome" name="nome" value="<?php echo dinheiroParaBr($contratos['valorReajuste']); ?>" ><br/>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<div class="col-md-offset-2 col-md-6"><strong>Valor Mensal:</strong>
-						<input type="text" class="form-control" id="nome" name="nome" value="<?php echo dinheiroParaBr($contratos['valorMensal']); ?>" >
-					</div>
-					<div class="col-md-6"><strong>Valor Anual:</strong><br/>
-						<input type="text" class="form-control" id="nome" name="nome" value="<?php echo dinheiroParaBr($contratos['valorAnual']); ?>" ><br/>
-					</div>
-				</div>
-				
-				
+				</div>			
 			</div>
 		</div>	
 		<p>&nbsp;</p>
@@ -140,7 +119,7 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 				<?php 
 					if($x['num'] == 0)
 					{  
-						echo "<p><b>Nenhum registro foi encontrado</b></p>";
+						echo "<br/><p><b>Nenhum registro foi encontrado</b></p>";
 					}
 					else
 					{ 
@@ -148,10 +127,13 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 						<table class="table table-condensed">
 							<thead>
 								<tr class="list_menu">
-								<td>ID</td>
-								<td>idContratos</td>
-								<td>Data Início</td>
-								<td>Data Final</td>
+									<td>ID</td>
+									<td>idContratos</td>
+									<td>Data Início</td>
+									<td>Data Final</td>
+									<td>Valor Inicial</td>
+									<td>Valor Mensal</td>
+									<td>Valor Anual</td>						
 								</tr>
 							</thead>
 							<tbody>
@@ -163,6 +145,9 @@ $suplente = recuperaDados("funcionario","id",$contratos['idSuplente']);
 								echo '<td class="list_description">'.$x[$h]['idContratos'].'</td>';
 								echo '<td class="list_description">'.exibirDataBr($x[$h]['dataInicio']).'</td>';
 								echo '<td class="list_description">'.exibirDataBr($x[$h]['dataFinal']).'</td>';
+								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorIncial']).'</td>';
+								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorMensal']).'</td>';
+								echo '<td class="list_description">'.dinheiroParaBr($x[$h]['valorAnual']).'</td>';
 								echo '</tr>';
 							}
 						?>					
